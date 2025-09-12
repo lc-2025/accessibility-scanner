@@ -67,6 +67,7 @@ Each scan should include:
 
 - Puppeteer
 - Axe
+- Joi
 
 ### Frameworks
 
@@ -86,10 +87,12 @@ Each scan should include:
 ### Testing
 
 - Jest
+- Supertest
 
 ### Versioning
 
 - Git
+- Husky
 
 ### Data storage
 
@@ -155,10 +158,10 @@ Here's some details about them:
 
 - Explicit indexing for DB model to reduce query load, improving general performance and reflecting the schema specification
 - CRUD operations supported by query transactions to ensure operational batching and better response
-- SSL middleware to ensure HTTPS communication on `production` (via redirect)
+- Custom SSL middleware to ensure HTTPS communication on `production` (via redirect)
 - Custom error middleware to manage uncovered exceptions and future scalability
-- Further peformance and security management via: requests compression, CORS, XSS protection, rate limiting, data sanitization
-- Server is defined as 'standalone' to easily allow future scalability (i.e. GraphQL). Same goes for some utility libraries
+- Further peformance and security management via: requests compression, CORS, XSS protection, rate limiting, data sanitization and validation
+- Server is defined as 'standalone' to easily allow testing and future scalability (i.e. GraphQL). Same goes for some utility libraries
 
 ### Estimated Delivery Time
 
@@ -170,5 +173,6 @@ About 1.5 day(s) | 12 working hours (including extra implementations)
 - Schema 3rd-party typing definitions (i.e. `violations`)
 - Responses transormation interceptor/middleware (getting rid of extra fields for security concerns)
 - API documentation (Swagger)
+- API versioning and GraphQL implementation for future scalability
 - Additional (corner-cases) tests
-- Continuous-Integration/Delivery
+- Continuous-Integration/Delivery & DevOps pipelines (i.e. GitHub Actions, Docker)
