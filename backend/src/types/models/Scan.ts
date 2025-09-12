@@ -1,3 +1,5 @@
+import { Result } from 'axe-core';
+
 // Types - Scan
 enum Status {
   Pending = 'pending',
@@ -6,10 +8,15 @@ enum Status {
   Error = 'error',
 }
 
-type TScan = {
+type TScanResults = {
+  url: string;
   status: Status;
-  // TODO:
-  violations: Array<any>;
+  timestamp: string;
+  violations: Array<Result>;
 };
 
-export default TScan;
+type TScan = TScanResults & {
+  id: string;
+};
+
+export { Status, TScan, TScanResults };

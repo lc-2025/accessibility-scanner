@@ -26,6 +26,8 @@
   },
   "homepage": "https://github.com/lc-2025/accessibility-scanner#readme",
   "dependencies": {
+    "@axe-core/puppeteer": "^4.10.2",
+    "axe-core": "^4.10.3",
     "body-parser": "^2.2.0",
     "compression": "^1.8.1",
     "cors": "^2.8.5",
@@ -36,7 +38,8 @@
     "express-rate-limit": "^8.1.0",
     "helmet": "^8.1.0",
     "joi": "^18.0.1",
-    "mongoose": "^8.18.1"
+    "mongoose": "^8.18.1",
+    "puppeteer": "^24.20.0"
   },
   "devDependencies": {
     "@babel/core": "^7.28.4",
