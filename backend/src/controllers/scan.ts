@@ -256,7 +256,7 @@ const putScan = async (
 
       await session.commitTransaction();
 
-      res.send(scanUpdated);
+      res.status(204).send(scanUpdated);
     } catch (error) {
       await session.abortTransaction();
 
