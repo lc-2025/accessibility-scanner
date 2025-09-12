@@ -1,5 +1,7 @@
 import 'dotenv/config';
+import { Result } from 'axe-core';
 import Joi from 'joi';
+import { Status } from '../types/models/Scan';
 
 // Constants
 /**
@@ -7,7 +9,7 @@ import Joi from 'joi';
  * Using environmental-config for per-project generic settings
  * as best-practice
  */
-const { NODE_ENV, BASE_URL, PORT, DB_NAME, DB_USER, DB_PASSWORD } = process.env;
+const { NODE_ENV, BASE_URL, PORT, DB_HOST, DB_NAME, DB_USER, DB_PASSWORD } = process.env;
 // Listen to all interfaces
 const HOST = '0.0.0.0';
 const HEADER = {
@@ -32,6 +34,7 @@ const MESSAGE = {
   INPUT: 'BAD_USER_INPUT',
   VALIDATION: 'Invalid query string',
   SERVER: 'Internal server error',
+  RUN: 'URL scans completed successfully.',
 };
 const EVENT = {
   ERROR: 'error',
@@ -41,19 +44,21 @@ const ROUTES = {
   BASE_PATHNAME: '/',
   API: {
     BASE_PATHNAME: '/scan',
-    DATABASE: `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_NAME}.qofijkg.mongodb.net/?retryWrites=true&w=majority&appName=${DB_NAME}`,
+    DATABASE: `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_NAME}.${DB_HOST}/?retryWrites=true&w=majority&appName=${DB_NAME}`,
     SCAN: {
       GET_ALL: '/list',
       GET: '/:id',
     },
   },
 };
-const QUERY_VALIDATION = {
-  id: Joi.string().alphanum(),
-  scan: Joi.object({
-    status: Joi.string().required(),
-    violations: Joi.array(),
-  }),
+const DATA_VALIDATION = {
+  id: Joi.string().pattern(new RegExp('^[0-9]|[a-z]|\-$'))
+};
+const SCAN = {
+  url: '',
+  status: Status.Done,
+  timestamp: '',
+  violations: [] as Result[],
 };
 
 export {
@@ -67,5 +72,6 @@ export {
   MESSAGE,
   EVENT,
   ROUTES,
-  QUERY_VALIDATION,
+  DATA_VALIDATION,
+  SCAN,
 };

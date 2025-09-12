@@ -1,4 +1,4 @@
-import express, { json } from 'express';
+import express from 'express';
 import { Server } from 'http';
 import compression from 'compression';
 import cors from 'cors';
@@ -35,7 +35,6 @@ app.use(
   helmet(),
   // Parsing (request body)
   bodyParser.json(),
-  json(),
   // Rate Limit
   rateLimit({
     // 15 minutes

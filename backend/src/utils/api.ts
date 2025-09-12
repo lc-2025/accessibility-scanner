@@ -1,8 +1,10 @@
 import { Request, Response } from 'express';
-import mongoose from 'mongoose';
 import Joi from 'joi';
-import { QUERY_VALIDATION } from './constants';
-import TQueryFilter from 'src/types/api/Query';
+import puppeteer from 'puppeteer';
+import { loadPage } from '@axe-core/puppeteer';
+import { SCAN } from './constants';
+import TQueryFilter from '../types/api/Query';
+import { Status, TScanResults } from '../types/models/Scan';
 
 /**
  * @description Query filter setter
@@ -16,8 +18,8 @@ const setFilter = (data: any, parse?: boolean): TQueryFilter => {
   data = parse ? JSON.parse(data as string) : data;
 
   return {
-    _id: {
-      $in: data.map((element: string) => new mongoose.Types.ObjectId(element)),
+    id: {
+      $in: data,
     },
   };
 };
@@ -26,26 +28,75 @@ const setFilter = (data: any, parse?: boolean): TQueryFilter => {
  * @description Request validation helper
  * Checks the integrity of querystring and body sent data
  * @author Luca Cattide
- * @param {Request} req
- * @param {Response} res
+ * @param {Request} request
+ * @param {Response} response
+ * @param {Joi.ObjectSchema<any>} schema
  */
-const validateRequest = (req: Request, res: Response): void => {
-  // Validation
-  const validationParam = Joi.string().pattern(new RegExp('^[0-9]$')).max(2);
-  const schema = Joi.object({
-    skip: validationParam,
-    limit: validationParam,
-    ...QUERY_VALIDATION,
-  });
+const validateRequest = (
+  request: Request,
+  response: Response,
+  schema: Joi.ObjectSchema<any>,
+): void => {
   const { error } = schema.validate({
-    ...req.query,
-    ...req.body,
+    ...request.params,
+    ...request.query,
+    ...request.body,
   });
 
   // Validation check
   if (error) {
-    res.status(409).send(error.details[0].message);
+    response.status(409).send(error.details[0].message);
   }
 };
 
-export { setFilter, validateRequest };
+/** URL tests helper
+ * Performs accessibility test on the provided set of URLs
+ * @description
+ * @author Luca Cattide
+ * @param {Array<string>} urls
+ * @returns {*}  {Promise<TScanResults[]>}
+ */
+const testUrls = async (urls: Array<string>): Promise<TScanResults[]> =>
+  await Promise.all(
+    urls.map(async (url) => {
+      let scanResult = SCAN;
+
+      try {
+        scanResult = {
+          ...scanResult,
+          url,
+          status: Status.Running,
+        };
+
+        // Chrome shell is less stable but more efficient in performance
+        const browser = await puppeteer.launch({ headless: 'shell' });
+        const axeBuilder = await loadPage(browser, url);
+        const results = await axeBuilder.analyze();
+
+        scanResult.status = Status.Pending;
+
+        // Results check
+        if (results) {
+          const { timestamp, violations } = results;
+
+          scanResult = {
+            ...scanResult,
+            status: Status.Done,
+            timestamp,
+            violations,
+          };
+        }
+
+        await browser.close();
+
+        return scanResult;
+      } catch (error) {
+        console.error(error);
+        scanResult.status = Status.Error;
+
+        return scanResult;
+      }
+    }),
+  );
+
+export { setFilter, validateRequest, testUrls };

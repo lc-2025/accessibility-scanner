@@ -4,7 +4,7 @@ type TQueryRange = {
 };
 
 type TQueryFilter = {
-  _id: TQueryRange;
+  id: TQueryRange;
 };
 
 export default TQueryFilter;
