@@ -48,6 +48,17 @@ const ROUTES = {
     },
   },
 };
+const TEST = {
+  TIMEOUT: 60000,
+  ID: '',
+  SCAN: {
+    id: '',
+    status: '',
+    createdAt: '',
+    deletedAt: '',
+    violations: [],
+  },
+};
 const QUERY_VALIDATION = {
   id: Joi.string().alphanum(),
   scan: Joi.object({
@@ -67,5 +78,6 @@ export {
   MESSAGE,
   EVENT,
   ROUTES,
+  TEST,
   QUERY_VALIDATION,
 };
