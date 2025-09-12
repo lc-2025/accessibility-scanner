@@ -3,8 +3,8 @@ import request from 'supertest';
 import server from '../../index';
 import { ROUTES, MESSAGE, TEST } from '../../utils/constants';
 
-// NFT API Unit Test
-describe('NFT API Unit Test - REST', () => {
+// Scan API Unit Test
+describe('Scan API Unit Test - REST', () => {
   let app: Server;
   let response = null;
   // Increasing timeout for CI environment if needed
