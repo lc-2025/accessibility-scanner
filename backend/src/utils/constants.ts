@@ -52,6 +52,19 @@ const ROUTES = {
     },
   },
 };
+const TEST_ID = '7ece90af-4a2a-4573-aaf0-9ed4e3ea2257'
+const TEST = {
+  TIMEOUT: 60000,
+  URLS: ['https://lucati.dev', 'https://enefti-demo.vercel.app'],
+  ID: TEST_ID,
+  SCAN: {
+    id: TEST_ID,
+    status: 'done',
+    createdAt: '2025-09-12T10:00:52.885Z',
+    deletedAt: '2025-09-12T10:00:52.885Z',
+    violations: [],
+  },
+};
 const DATA_VALIDATION = {
   id: Joi.string().pattern(new RegExp('^[0-9]|[a-z]|\-$')),
 };
@@ -60,17 +73,6 @@ const SCAN = {
   status: Status.Done,
   timestamp: '',
   violations: [] as Result[],
-};
-const TEST = {
-  TIMEOUT: 60000,
-  ID: '',
-  SCAN: {
-    id: '',
-    status: '',
-    createdAt: '',
-    deletedAt: '',
-    violations: [],
-  },
 };
 
 export {
@@ -84,7 +86,7 @@ export {
   MESSAGE,
   EVENT,
   ROUTES,
+  TEST,
   DATA_VALIDATION,
   SCAN,
-  TEST,
 };
