@@ -9,7 +9,8 @@ import { Status } from '../types/models/Scan';
  * Using environmental-config for per-project generic settings
  * as best-practice
  */
-const { NODE_ENV, BASE_URL, PORT, DB_HOST, DB_NAME, DB_USER, DB_PASSWORD } = process.env;
+const { NODE_ENV, BASE_URL, PORT, DB_HOST, DB_NAME, DB_USER, DB_PASSWORD } =
+  process.env;
 // Listen to all interfaces
 const HOST = '0.0.0.0';
 const HEADER = {
@@ -52,13 +53,24 @@ const ROUTES = {
   },
 };
 const DATA_VALIDATION = {
-  id: Joi.string().pattern(new RegExp('^[0-9]|[a-z]|\-$'))
+  id: Joi.string().pattern(new RegExp('^[0-9]|[a-z]|\-$')),
 };
 const SCAN = {
   url: '',
   status: Status.Done,
   timestamp: '',
   violations: [] as Result[],
+};
+const TEST = {
+  TIMEOUT: 60000,
+  ID: '',
+  SCAN: {
+    id: '',
+    status: '',
+    createdAt: '',
+    deletedAt: '',
+    violations: [],
+  },
 };
 
 export {
@@ -74,4 +86,5 @@ export {
   ROUTES,
   DATA_VALIDATION,
   SCAN,
+  TEST,
 };
