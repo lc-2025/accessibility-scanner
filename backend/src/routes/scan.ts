@@ -1,6 +1,12 @@
 import { Router } from 'express';
 import { ROUTES } from '../utils/constants';
-import { getScans, getScan, postScan, putScan, deleteScan } from '../controllers/scan';
+import {
+  getScans,
+  getScan,
+  postScan,
+  putScan,
+  deleteScan,
+} from '../controllers/scan';
 
 // Router
 const routerScan = Router();
