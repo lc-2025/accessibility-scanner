@@ -1,3 +1,4 @@
+import Language from './Language';
 import Menu from './Menu';
 
 /**
@@ -7,9 +8,10 @@ import Menu from './Menu';
  */
 function Header() {
   return (
-    <header className="header w-full rounded-b-2xl px-4 py-4 shadow-md">
+    <header className="header flex w-full items-center justify-between rounded-b-2xl px-4 py-4 shadow-md">
       <h6 className="header__title hidden">Header</h6>
       <Menu />
+      <Language />
     </header>
   );
 }

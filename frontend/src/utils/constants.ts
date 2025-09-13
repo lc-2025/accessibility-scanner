@@ -1,3 +1,11 @@
+const BUTTON_TYPE = {
+  ANCHOR: 'anchor',
+  DEFAULT: 'default',
+  LINK: 'link',
+};
+
+const LANGUAGES = ['en', 'it'];
+
 const ROUTE = {
   HOME: {
     PATH: '/',
@@ -13,4 +21,4 @@ const ROUTE = {
   },
 };
 
-export { ROUTE };
+export { BUTTON_TYPE, LANGUAGES, ROUTE };

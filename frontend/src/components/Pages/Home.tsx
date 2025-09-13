@@ -1,6 +1,6 @@
-import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { ROUTE } from '../../utils/constants';
+import Button from '../Layout/Button';
+import { ROUTE, BUTTON_TYPE } from '../../utils/constants';
 import '../../css/components/Home.css';
 
 /**
@@ -9,12 +9,8 @@ import '../../css/components/Home.css';
  * @returns {*}
  */
 function Home() {
+  const { ANCHOR, LINK } = BUTTON_TYPE;
   const { t } = useTranslation();
-
-  // TODO:
-  /* const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
-  }; */
 
   /**
    * @description Headline anchor handler
@@ -45,42 +41,35 @@ function Home() {
             <h2 className="titles__tagline mb-12 text-2xl">
               {t('headline.tagline')}
             </h2>
-            <a
-              className="titles__cta text-primary rounded-2xl bg-white px-8 py-4 text-2xl font-bold uppercase transition-opacity select-none hover:opacity-75 sm:text-4xl"
-              href="#summary"
-              onClick={handleAnchor}
+            <Button
+              callback={handleAnchor}
+              label={t('headline.cta.label')}
               title={t('headline.cta.title')}
-            >
-              {t('headline.cta.label')}
-            </a>
+              type={ANCHOR}
+            />
           </hgroup>
         </section>
         {/* Headline End */}
         {/* Summary Start */}
-        <section
-          className="summary bg-primary flex min-h-[40rem] w-full flex-col items-end justify-center bg-cover bg-no-repeat px-4 py-12 bg-blend-screen sm:px-12"
-        >
+        <section className="summary bg-primary flex min-h-[40rem] w-full flex-col items-end justify-center bg-cover bg-no-repeat px-4 py-12 bg-blend-screen sm:px-12">
           <h6 className="summary__title hidden">Summary</h6>
           <article className="summary__article bg-accent text-default flex w-full flex-col items-center rounded-2xl px-12 pt-12 pb-16 sm:w-2/3 lg:mr-32 lg:w-1/3">
             <h2 className="article__title mb-4 w-full font-bold">
               {t('summary.title')}
             </h2>
             <p className="article__body mb-12">{t('summary.body')}</p>
-            <Link
-              className="titles__cta bg-primary rounded-2xl px-8 py-4 text-center font-bold text-white uppercase transition-opacity select-none hover:opacity-75"
+            <Button
+              callback={handleAnchor}
+              label={t('summary.cta.label')}
+              link={ROUTE.SCAN.PATH}
               title={t('summary.cta.title')}
-              to={ROUTE.SCAN.PATH}
-            >
-              {t('summary.cta.label')}
-            </Link>
+              type={LINK}
+            />
           </article>
         </section>
         {/* Summary End */}
       </div>
       {/* Home End */}
-      {/* TODO:
-      <button onClick={() => changeLanguage('en')}>English</button>
-      <button onClick={() => changeLanguage('it')}>Ita</button> */}
     </>
   );
 }

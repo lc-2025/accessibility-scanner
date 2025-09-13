@@ -1,4 +1,5 @@
 {
+  "en": "Inglese",
   "footer": "Accessibility Scanner © Luca Cattide per AccessiWay Coding Challenge 2025. Tutti i Diritti riservati.",
   "headline": {
     "cta": {
@@ -8,6 +9,8 @@
     "tagline": "Il tuo URL è accessibile?",
     "title": "Accessibility Scanner"
   },
+  "it": "Italiano",
+  "language": "Lingua",
   "loading": "Caricamento",
   "summary": {
     "cta": {
