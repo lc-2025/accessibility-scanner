@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router';
 import Home from './components/Pages/Home.tsx';
 import Loading from './components/Layout/Loading.tsx';
+import Scan from './components/Pages/Scan/Scan.tsx';
 import ScanDetails from './components/Pages/Scan/ScanDetails.tsx';
 import ScanList from './components/Pages/Scan/ScanList.tsx';
 import ScanLayout from './components/Pages/Scan/ScanLayout.tsx';
@@ -36,7 +37,7 @@ createRoot(document.getElementById('root')!).render(
           }
           path={SCAN.PATH}
         >
-          <Route element={<ScanList />} index />
+          <Route element={<Scan />} index />
           <Route element={<ScanList />} path={LIST.PATH} />
           <Route element={<ScanDetails />} path={DETAILS.PATH} />
         </Route>

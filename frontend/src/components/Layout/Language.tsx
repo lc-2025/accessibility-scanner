@@ -30,12 +30,12 @@ function Language() {
         </MenuButton>
         <MenuItems
           anchor="bottom"
-          className="language__menu rounded-2xl shadow-lg right-4"
+          className="language__menu rounded-2xl shadow-lg w-fit"
         >
           {LANGUAGES.map((language, i) => (
             <MenuItem>
               <button
-                className="popover__language hover:bg-primary text-defaul w-full cursor-pointer bg-white px-4 py-4 transition-all select-none hover:text-white"
+                className="popover__language hover:bg-primary text-defaul w-full cursor-pointer bg-white px-4 py-4 select-none hover:text-white"
                 key={crypto.randomUUID() + i}
                 onClick={() => handleLanguage(language)}
               >

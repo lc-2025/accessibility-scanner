@@ -45,7 +45,7 @@ function Home() {
               callback={handleAnchor}
               label={t('headline.cta.label')}
               title={t('headline.cta.title')}
-              type={ANCHOR}
+              variant={ANCHOR}
             />
           </hgroup>
         </section>
@@ -63,7 +63,7 @@ function Home() {
               label={t('summary.cta.label')}
               link={ROUTE.SCAN.PATH}
               title={t('summary.cta.title')}
-              type={LINK}
+              variant={LINK}
             />
           </article>
         </section>

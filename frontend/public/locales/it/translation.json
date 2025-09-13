@@ -12,6 +12,20 @@
   "it": "Italiano",
   "language": "Lingua",
   "loading": "Caricamento",
+  "scan": {
+    "form": {
+      "add": "Aggiungi URL",
+      "delete": "Rimuovi URL",
+      "input": {
+        "url": {
+          "placeholder": "Inserire un URL"
+        }
+      },
+      "legend": "Verifica l'accessibilità della tua destinazione",
+      "submit": "Avvia"
+    },
+    "title": "Scansione"
+  },
   "summary": {
     "cta": {
       "label": "Verifica ora la tua risorsa",

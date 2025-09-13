@@ -4,6 +4,11 @@ const BUTTON_TYPE = {
   LINK: 'link',
 };
 
+const FORM_ACTION = {
+  ADD: 'add',
+  REMOVE: 'remove',
+};
+
 const LANGUAGES = ['en', 'it'];
 
 const ROUTE = {
@@ -21,4 +26,4 @@ const ROUTE = {
   },
 };
 
-export { BUTTON_TYPE, LANGUAGES, ROUTE };
+export { BUTTON_TYPE, FORM_ACTION, LANGUAGES, ROUTE };

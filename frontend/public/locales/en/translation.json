@@ -12,6 +12,20 @@
   "it": "Italian",
   "language": "Language",
   "loading": "Loading",
+  "scan": {
+    "form": {
+      "add": "Add URL",
+      "delete": "Remove URL",
+      "input": {
+        "url": {
+          "placeholder": "Enter a URL"
+        }
+      },
+      "legend": "Test your destinations accessibility",
+      "submit": "Start"
+    },
+    "title": "Scan"
+  },
   "summary": {
     "cta": {
       "label": "Check now your resource",
