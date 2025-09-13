@@ -1,8 +1,24 @@
 {
-  "name": "frontend",
+  "name": "accessibility-scanner-frontend",
+  "description": "Accessibility scanner - Frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lc-2025/accessibility-scanner.git"
+  },
+  "keywords": [
+    "accessibility",
+    "scanner",
+    "backend"
+  ],
+  "author": "Luca Cattide",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/lc-2025/accessibility-scanner/issues"
+  },
+  "homepage": "https://github.com/lc-2025/accessibility-scanner/frontend#readme",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

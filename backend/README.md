@@ -1,6 +1,6 @@
 # Accessibility Scanner - Backend
 
-AccessiWeb Coding Challenge
+AccessiWay Coding Challenge
 
 ## About
 
@@ -110,6 +110,12 @@ The environment configuration contains the core info required by the server in o
 ### Server
 
 On terminal, from project root:
+
+- To setup the project
+
+```bash
+npm i
+```
 
 - To run in `development` mode
 

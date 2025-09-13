@@ -1,7 +1,7 @@
 {
   "name": "accessibility-scanner-backend",
   "version": "1.0.0",
-  "description": "Accessibility scanner",
+  "description": "Accessibility scanner - Backend",
   "main": "dist/index.js",
   "scripts": {
     "dev": "nodemon ./src/index.ts",
@@ -17,14 +17,15 @@
   },
   "keywords": [
     "accessibility",
-    "scanner"
+    "scanner",
+    "backend"
   ],
   "author": "Luca Cattide",
   "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/lc-2025/accessibility-scanner/issues"
   },
-  "homepage": "https://github.com/lc-2025/accessibility-scanner#readme",
+  "homepage": "https://github.com/lc-2025/accessibility-scanner/backend#readme",
   "dependencies": {
     "@axe-core/puppeteer": "^4.10.2",
     "axe-core": "^4.10.3",
