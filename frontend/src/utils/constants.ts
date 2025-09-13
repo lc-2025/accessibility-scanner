@@ -3,10 +3,13 @@ const ROUTE = {
     PATH: '/',
   },
   SCAN: {
-    PATH: 'scan',
     DETAILS: {
       PATH: 'details/:id',
     },
+    LIST: {
+      PATH: 'list',
+    },
+    PATH: 'scan',
   },
 };
 

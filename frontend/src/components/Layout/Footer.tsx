@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 /**
  * @description Footer component
  * @author Luca Cattide
- * @date 13/09/2025
  * @returns {*}
  */
 function Footer() {

@@ -12,6 +12,7 @@ import './css/index.css';
 import './i18n.ts';
 
 const { HOME, SCAN } = ROUTE;
+const { DETAILS, LIST } = SCAN;
 
 // Main
 createRoot(document.getElementById('root')!).render(
@@ -35,8 +36,9 @@ createRoot(document.getElementById('root')!).render(
           }
           path={SCAN.PATH}
         >
-          <Route element={<ScanList />} index></Route>
-          <Route element={<ScanDetails />} path={SCAN.DETAILS.PATH}></Route>
+          <Route element={<ScanList />} index />
+          <Route element={<ScanList />} path={LIST.PATH} />
+          <Route element={<ScanDetails />} path={DETAILS.PATH} />
         </Route>
       </Routes>
     </BrowserRouter>

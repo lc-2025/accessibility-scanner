@@ -67,3 +67,7 @@ export default tseslint.config([
   },
 ])
 ```
+
+## To Be Improved
+
+- UX and microinteractions in general (i.e. via Motion, GSAP)
