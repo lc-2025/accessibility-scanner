@@ -1,8 +1,9 @@
 import { Button as FormButton, Field, Input, Label } from '@headlessui/react';
 import { useTranslation } from 'react-i18next';
 import { TrashIcon } from '@heroicons/react/24/outline';
-import { FORM_ACTION } from '../../utils/constants';
+import { BUTTON_ICON, FORM_ACTION } from '../../utils/constants';
 import type { TFormField } from '../../types/components/Form';
+import ButtonIcon from '../Layout/ButtonIcon';
 
 /**
  * @description Form field component
@@ -43,13 +44,12 @@ function FormField({ callback, index, urls }: TFormField) {
           type="text"
         />
         {urls > 1 && index > 0 && (
-          <FormButton
-            aria-label={t('scan.form.delete')}
-            className="container__button bg-accent ml-4 cursor-pointer rounded-2xl px-4 py-2 transition-opacity hover:opacity-75"
-            onClick={() => callback(REMOVE)}
-          >
-            <TrashIcon className="button__icon size-6" />
-          </FormButton>
+          <ButtonIcon
+            // TODO: Props drilling - move to context
+            callback={() => callback(REMOVE)}
+            label={t('scan.form.delete')}
+            variant={BUTTON_ICON.VIEW}
+          />
         )}
       </div>
     </Field>

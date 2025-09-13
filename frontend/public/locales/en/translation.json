@@ -24,6 +24,19 @@
       "legend": "Test your destinations accessibility",
       "submit": "Start"
     },
+    "list": {
+      "action": {
+        "delete": "Delete scan",
+        "view": "View scan details"
+      },
+      "caption": "URL list on which you ran the tests",
+      "entry": {
+        "actions": "Actions",
+        "creation": "Creation Date",
+        "status": "Status"
+      },
+      "title": "Scan Results"
+    },
     "result": {
       "label": "View Results",
       "message": "Your test reports are ready. Consult them now or start a new scan."

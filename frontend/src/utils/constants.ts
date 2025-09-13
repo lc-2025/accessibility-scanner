@@ -1,3 +1,8 @@
+const BUTTON_ICON = {
+  DELETE: 'delete',
+  VIEW: 'view',
+};
+
 const BUTTON_TYPE = {
   ANCHOR: 'anchor',
   DEFAULT: 'default',
@@ -26,4 +31,11 @@ const ROUTE = {
   },
 };
 
-export { BUTTON_TYPE, FORM_ACTION, LANGUAGES, ROUTE };
+const STATUS = {
+  DONE: 'done',
+  ERROR: 'error',
+  PENDING: 'pending',
+  RUNNING: 'running',
+};
+
+export { BUTTON_ICON, BUTTON_TYPE, FORM_ACTION, LANGUAGES, ROUTE, STATUS };

@@ -24,6 +24,19 @@
       "legend": "Verifica l'accessibilità della tua destinazione",
       "submit": "Avvia"
     },
+    "list": {
+      "action": {
+        "delete": "Elimina scansione",
+        "view": "Visualizza dettagli scansione"
+      },
+      "caption": "Lista URL su cui hai effettuato i test",
+      "entry": {
+        "actions": "Azioni",
+        "creation": "Data Creazione",
+        "status": "Stato"
+      },
+      "title": "Risultati Scansione"
+    },
     "result": {
       "label": "Visualizza Risultati",
       "message": "I tuoi resoconti sui test sono pronti. Consultali ora o inizia una nuova scansione."

@@ -35,7 +35,7 @@ function Language() {
           {LANGUAGES.map((language, i) => (
             <MenuItem key={crypto.randomUUID() + i}>
               <button
-                className="popover__language hover:bg-primary text-defaul w-full cursor-pointer bg-white px-4 py-4 select-none hover:text-white"
+                className={`popover__language hover:bg-primary text-defaul w-full cursor-pointer bg-white px-4 py-4 select-none hover:text-white ${i18n.language.indexOf(language) !== -1 && 'font-bold'}`}
                 key={crypto.randomUUID() + i}
                 onClick={() => handleLanguage(language)}
               >
