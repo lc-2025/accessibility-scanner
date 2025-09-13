@@ -32,12 +32,12 @@ function ScanList() {
 
   return (
     // Scan List Start
-    // TODO: Breadcrumb
     <section className="scan--list flex-1 px-4 py-4 w-full flex flex-col items-center">
       <h1 className="scan--list__title text-default mb-4 text-center text-2xl font-bold">
         {t('scan.list.title')}
       </h1>
       {/* Results Start */}
+      {/* TODO: Responsive */}
       <table className="scan--list__results table-auto">
         <caption className="results__caption select-none">
           {t('scan.list.caption')}
