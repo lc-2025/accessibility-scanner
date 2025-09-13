@@ -1,3 +1,20 @@
 {
-  "hi": "ciao"
+  "footer": "Accessibility Scanner © Luca Cattide per AccessiWay Coding Challenge 2025. Tutti i Diritti riservati.",
+  "headline": {
+    "cta": {
+      "label": "Scopri Ora",
+      "title": "Testa l'accessibilità della tua risorsa"
+    },
+    "tagline": "Il tuo URL è accessibile?",
+    "title": "Accessibility Scanner"
+  },
+  "loading": "Caricamento",
+  "summary": {
+    "cta": {
+      "label": "Verifica ora la tua risorsa",
+      "title": "Scansiona ora l'URL desiderato"
+    },
+    "body": "L’accessibilità web garantisce a tutti un’esperienza inclusiva. Accessibility Scanner è uno strumento efficace che individua problemi, suggerendo miglioramenti per rendere i siti più accessibili, rafforzando usabilità e conformità agli standard.",
+    "title": "Accessibilità nel web: il ruolo di Accessibility Scanner"
+  }
 }

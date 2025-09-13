@@ -1,1 +1,28 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+@import 'tailwindcss';
+
+@theme {
+  --color-accent: #fbc814;
+  --color-default: #1a202c;
+  --color-primary: #185cff;
+}
+
+body {
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 16px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: white;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+}
