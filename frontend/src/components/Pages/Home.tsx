@@ -58,7 +58,6 @@ function Home() {
         {/* Headline End */}
         {/* Summary Start */}
         <section
-          id="summary"
           className="summary bg-primary flex min-h-[40rem] w-full flex-col items-end justify-center bg-cover bg-no-repeat px-4 py-12 bg-blend-screen sm:px-12"
         >
           <h6 className="summary__title hidden">Summary</h6>
