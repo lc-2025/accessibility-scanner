@@ -8,7 +8,7 @@ import Header from '../../Layout/Header';
  */
 function ScanLayout() {
   return (
-    <div className="layout--scan flex flex-col min-h-dvh">
+    <div className="layout--scan flex flex-col min-h-dvh items-center">
       <Header />
       <Outlet />
     </div>

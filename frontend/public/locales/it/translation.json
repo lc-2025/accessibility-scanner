@@ -24,6 +24,10 @@
       "legend": "Verifica l'accessibilità della tua destinazione",
       "submit": "Avvia"
     },
+    "result": {
+      "label": "Visualizza Risultati",
+      "message": "I tuoi resoconti sui test sono pronti. Consultali ora o inizia una nuova scansione."
+    },
     "title": "Scansione"
   },
   "summary": {

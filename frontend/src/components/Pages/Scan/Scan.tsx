@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Form from '../../Form/Form';
+import { BUTTON_TYPE, ROUTE } from '../../../utils/constants';
+import Button from '../../Layout/Button';
 /**
  * @description Scan page component
  * @author Luca Cattide
@@ -7,14 +10,29 @@ import Form from '../../Form/Form';
  */
 function Scan() {
   const { t } = useTranslation();
+  const [result, setResult] = useState<boolean>(false);
 
   return (
     // Scan Start
-    <section className="scan px-4 py-4 flex-1">
+    <section className="scan flex-1 px-4 py-4">
       <h1 className="scan__title text-default mb-4 text-center text-2xl font-bold">
         {t('scan.title')}
       </h1>
-      <Form />
+      <Form callback={setResult} />
+      {result && (
+        // Result Start
+        <div className="scan__result mx-auto mt-8 flex w-fit flex-col items-center">
+          <p className="result__message text-default mb-4 text-center">
+            {t('scan.result.message')}
+          </p>
+          <Button
+            label={t('scan.result.label')}
+            link={ROUTE.SCAN.LIST.PATH}
+            variant={BUTTON_TYPE.LINK}
+          />
+        </div>
+        // Result End
+      )}
     </section>
     // Scan End
   );

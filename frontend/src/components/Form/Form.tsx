@@ -4,16 +4,25 @@ import { useTranslation } from 'react-i18next';
 import Button from '../Layout/Button';
 import { BUTTON_TYPE, FORM_ACTION } from '../../utils/constants';
 import FormField from './FormField';
+import type { Dispatch, SetStateAction } from 'react';
 
 /**
  * @description Form component
  * @author Luca Cattide
+ * @param {{ callback: Dispatch<SetStateAction<boolean>> }} { callback }
  * @returns {*}
  */
-function Form() {
+function Form({ callback }: { callback: Dispatch<SetStateAction<boolean>> }) {
   const { ADD } = FORM_ACTION;
   const { t } = useTranslation();
   const [urls, setUrls] = useState<number>(1);
+
+  const handleSubmit = (e): void => {
+    // TODO:
+    e.preventDefault();
+    // TODO: Only if successful
+    callback(true);
+  };
 
   /**
    * @description URLs setter handler
@@ -28,8 +37,8 @@ function Form() {
 
   return (
     // Form Start
-    <form className="form flex flex-col items-center">
-      {/* Fields Start */}
+    <form className="form flex flex-col items-center" onSubmit={handleSubmit}>
+      {/* Fieldset Start */}
       <Fieldset className="form__fields">
         <Legend className="fields__legend text-default mb-4 text-center select-none">
           {t('scan.form.legend')}
@@ -56,7 +65,12 @@ function Form() {
           variant={BUTTON_TYPE.DEFAULT}
         />
       </Fieldset>
-      {/* Fields End */}
+      {/* Fieldset End */}
+      {/* Message Start */}
+      <p aria-live="polite" className="form__message">
+        {/* TODO: */}
+      </p>
+      {/* Message End */}
     </form>
     // Form End
   );

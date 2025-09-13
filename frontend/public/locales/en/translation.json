@@ -24,6 +24,10 @@
       "legend": "Test your destinations accessibility",
       "submit": "Start"
     },
+    "result": {
+      "label": "View Results",
+      "message": "Your test reports are ready. Consult them now or start a new scan."
+    },
     "title": "Scan"
   },
   "summary": {
