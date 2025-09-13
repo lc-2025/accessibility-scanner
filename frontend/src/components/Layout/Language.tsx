@@ -30,10 +30,10 @@ function Language() {
         </MenuButton>
         <MenuItems
           anchor="bottom"
-          className="language__menu rounded-2xl shadow-lg w-fit"
+          className="language__menu w-fit rounded-2xl shadow-lg"
         >
           {LANGUAGES.map((language, i) => (
-            <MenuItem>
+            <MenuItem key={crypto.randomUUID() + i}>
               <button
                 className="popover__language hover:bg-primary text-defaul w-full cursor-pointer bg-white px-4 py-4 select-none hover:text-white"
                 key={crypto.randomUUID() + i}
