@@ -35,6 +35,17 @@
         "creation": "Creation Date",
         "status": "Status"
       },
+      "pagination": {
+        "next": "Next page",
+        "page": "Page",
+        "previous": "Previous page"
+      },
+      "status": {
+        "done": "Done",
+        "error": "Error",
+        "pending": "Pending",
+        "running": "Running"
+      },
       "title": "Scan Results"
     },
     "result": {

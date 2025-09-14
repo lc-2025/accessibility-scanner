@@ -1,13 +1,20 @@
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import Status from '../../Layout/Status';
 import ButtonIcon from '../../Layout/ButtonIcon';
+import Pagination from '../../Layout/Pagination';
 import { BUTTON_ICON, LANGUAGES } from '../../../utils/constants';
 
+/**
+ * @description Scan list component
+ * @author Luca Cattide
+ * @returns {*}  {boolean}
+ */
 function ScanList() {
   const { t, i18n } = useTranslation();
-  const SCAN_RESULT = {
-    HEADERS: [
+  const navigate = useNavigate();
+  const scanResult = {
+    headers: [
       'URL',
       t('scan.list.entry.status'),
       t('scan.list.entry.creation'),
@@ -17,84 +24,103 @@ function ScanList() {
 
   /**
    * @description Localized date helper
+   * Formats the date to the current locae ISO version
    * @author Luca Cattide
    * @param {string} date
    * @returns {*}  {string}
    */
-  const setDate = (date: string): string => {
-    const localizedDate = {
-      [LANGUAGES[0]]: new Date(date).toLocaleString(LANGUAGES[0]),
-      [LANGUAGES[1]]: new Date(date).toLocaleString(LANGUAGES[1]),
-    };
+  const formatDate = (date: string): string =>
+    new Date(date)
+      .toLocaleString(LANGUAGES[i18n.language === LANGUAGES[0] ? 0 : 1])
+      .split(',')[0];
 
-    return localizedDate[i18n.language].split(',')[0];
+  const handleAction = (action: string, id: string): void => {
+    if (action === BUTTON_ICON.VIEW) {
+      navigate(`/scan/details/${id}`);
+    } else {
+      // TODO:
+    }
   };
 
   return (
     // Scan List Start
-    <section className="scan--list flex-1 px-4 py-4 w-full flex flex-col items-center">
+    <section className="scan--list flex w-full flex-1 flex-col items-center px-4 py-4">
       <h1 className="scan--list__title text-default mb-4 text-center text-2xl font-bold">
         {t('scan.list.title')}
       </h1>
       {/* Results Start */}
-      {/* TODO: Responsive */}
-      <table className="scan--list__results table-auto">
-        <caption className="results__caption select-none">
-          {t('scan.list.caption')}
-        </caption>
-        {/* Header Start */}
-        <thead className="results__header">
-          <tr className="header__row">
-            {SCAN_RESULT.HEADERS.map((header, i) => (
+      <div className="scan--list__container w-full flex-1 overflow-x-auto">
+        <table className="scan--list__results mb-4 min-w-full table-auto">
+          <caption className="results__caption select-none">
+            {t('scan.list.caption')}
+          </caption>
+          {/* Header Start */}
+          <thead className="results__header table-header-group">
+            <tr className="header__row table-row">
+              {scanResult.headers.map((header, i) => (
+                <th
+                  className="row__title text-default table-cell px-4 py-4 font-bold whitespace-nowrap select-none"
+                  key={crypto.randomUUID() + i}
+                  scope="col"
+                >
+                  {header}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          {/* Header End */}
+          {/* Body Start */}
+          <tbody className="results__body table-row-group">
+            {/* Scan Start */}
+            {/* TODO: Alternate BG color */}
+            <tr className={`body__row table-row ${'bg-gray-50'}`}>
+              {/* TODO: Data binding */}
               <th
-                className="row__title text-default px-4 py-4 font-bold select-none"
-                key={crypto.randomUUID() + i}
-                scope="col"
+                className="row__data row__data--url table-cell px-4 py-4 whitespace-nowrap"
+                scope="row"
               >
-                {header}
+                <Link
+                  className="data__link text-primary font-bold transition-opacity hover:opacity-75"
+                  target="_blank"
+                  title="Visit the tested URL"
+                  to="https://lucati.dev"
+                  rel="noindex,nofollow"
+                >
+                  https://lucati.dev
+                </Link>
               </th>
-            ))}
-          </tr>
-        </thead>
-        {/* Header End */}
-        <tbody className="results__body">
-          <tr className="body__row">
-            {/* TODO: Data binding */}
-            <th className="row__data row__data--url px-4 py-4" scope="row">
-              <Link
-                className="data__link text-primary font-bold transition-opacity hover:opacity-75"
-                target="_blank"
-                title="Visit the tested URL"
-                to="https://lucati.dev"
-                rel="noindex,nofollow"
-              >
-                https://lucati.dev
-              </Link>
-            </th>
-            <td className="row__data row__data--status px-4 py-4 text-center">
-              <Status type="done" />
-            </td>
-            <td className="row__data row__data--created px-4 py-4 text-center">
-              {setDate('01/01/2000')}
-            </td>
-            <td className="row__data row__data--actions px-4 py-4 text-center">
-              {Object.values(BUTTON_ICON)
-                .reverse()
-                .map((value, i) => (
-                  <ButtonIcon
-                    callback={() => {
-                      /* TODO: */
-                    }}
-                    key={crypto.randomUUID() + i}
-                    label={t(`scan.list.action.${value}`)}
-                    variant={value}
-                  />
-                ))}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      {/* Results End */}
+              <td className="row__data row__data--status table-cell px-4 py-4 text-center whitespace-nowrap">
+                <Status type={'done'} />
+              </td>
+              <td className="row__data row__data--created table-cell px-4 py-4 text-center whitespace-nowrap">
+                {formatDate('01/01/2000')}
+              </td>
+              <td className="row__data row__data--actions table-cell px-4 py-4 text-center whitespace-nowrap">
+                {Object.values(BUTTON_ICON)
+                  .reverse()
+                  .map((value, i) => (
+                    // TODO: Delete confirmation
+                    <ButtonIcon
+                      callback={() => handleAction(value, '1')}
+                      key={crypto.randomUUID() + i}
+                      label={t(`scan.list.action.${value}`)}
+                      variant={value}
+                    />
+                  ))}
+              </td>
+            </tr>
+            {/* Scan End */}
+          </tbody>
+          {/* Body End */}
+        </table>
+        <Pagination
+          callback={() => {
+            /* TODO: */
+          }}
+          pages={1}
+        />
+        {/* Results End */}
+      </div>
     </section>
     // Scan List End
   );
