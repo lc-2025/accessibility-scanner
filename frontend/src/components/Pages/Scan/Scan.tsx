@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Form from '../../Form/Form';
 import { BUTTON_TYPE, ROUTE } from '../../../utils/constants';
 import Button from '../../Layout/Button';
+import Breadcrumb from '../../Layout/Breadcrumb';
 /**
  * @description Scan page component
  * @author Luca Cattide
@@ -14,7 +15,8 @@ function Scan() {
 
   return (
     // Scan Start
-    <section className="scan flex-1 px-4 py-4">
+    <section className="scan flex-1 px-4 py-4 w-full">
+      <Breadcrumb />
       <h1 className="scan__title text-default mb-4 text-center text-2xl font-bold">
         {t('scan.title')}
       </h1>

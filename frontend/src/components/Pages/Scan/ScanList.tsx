@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
+import Breadcrumb from '../../Layout/Breadcrumb';
 import Status from '../../Layout/Status';
 import ButtonIcon from '../../Layout/ButtonIcon';
 import Pagination from '../../Layout/Pagination';
@@ -42,10 +43,13 @@ function ScanList() {
     }
   };
 
+  // TODO: Fetching
+
   return (
     // Scan List Start
-    <section className="scan--list flex w-full flex-1 flex-col items-center px-4 py-4">
-      <h1 className="scan--list__title text-default mb-4 text-center text-2xl font-bold">
+    <section className="scan--list flex w-full flex-col items-center py-4">
+      <Breadcrumb />
+      <h1 className="scan--list__title text-default mb-8 text-center text-2xl font-bold">
         {t('scan.list.title')}
       </h1>
       {/* Results Start */}

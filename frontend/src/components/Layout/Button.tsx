@@ -8,7 +8,14 @@ import type { TButton } from '../../types/components/Button';
  * @param {TButton} { callback, label, link, title, type, variant }
  * @returns {*}
  */
-function Button({ callback, label, link, title, type, variant }: TButton) {
+function Button({
+  callback,
+  label,
+  link,
+  title,
+  type,
+  variant,
+}: TButton) {
   const { ANCHOR, DEFAULT, LINK } = BUTTON_TYPE;
 
   return variant === ANCHOR ? (
@@ -23,6 +30,7 @@ function Button({ callback, label, link, title, type, variant }: TButton) {
   ) : variant === DEFAULT ? (
     <button
       className="button bg-primary w-full cursor-pointer rounded-2xl px-8 py-4 text-center font-bold text-white uppercase transition-opacity select-none hover:opacity-75"
+      onClick={callback}
       type={type as 'button' | 'submit'}
     >
       {label}

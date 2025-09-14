@@ -13,7 +13,7 @@ function Pagination({ callback, pages }: TPagination) {
   return (
     // Pagination Start
     <ul className="pagination text-default flex flex-wrap justify-center gap-1 select-none">
-      <li className="pagination__prev mt-4 mb-4 sm:mb-0">
+      <li className="pagination__prev mt-4 mb-4 pl-4 sm:mb-0">
         <a
           aria-label={t('scan.pagination.previous')}
           className="prev__link border-primary text-primary mx-4 grid place-content-center rounded-2xl border px-4 py-2 transition-opacity hover:opacity-75 rtl:rotate-180"
@@ -45,7 +45,7 @@ function Pagination({ callback, pages }: TPagination) {
         </li>
         // Page End
       ))}
-      <li className="pagination__next mt-4 mb-4 sm:mb-0">
+      <li className="pagination__next mt-4 mb-4 pr-4 sm:mb-0">
         <a
           aria-label={t('scan.pagination.next')}
           className="next__link border-primary text-primary mx-4 grid place-content-center rounded-2xl border px-4 py-2 transition-opacity hover:opacity-75 rtl:rotate-180"

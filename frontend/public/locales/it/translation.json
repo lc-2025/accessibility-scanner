@@ -12,7 +12,18 @@
   "it": "Italiano",
   "language": "Lingua",
   "loading": "Caricamento",
+  "menu": {
+    "details": "Dettagli Scansione",
+    "list": "Lista Scansioni",
+    "scan": "Scansiona"
+  },
   "scan": {
+    "details": {
+      "description": "Descrizione",
+      "impact": "Impatto",
+      "nodes": "Nodi",
+      "title": "Dettagli Scansione"
+    },
     "form": {
       "add": "Aggiungi URL",
       "delete": "Rimuovi URL",

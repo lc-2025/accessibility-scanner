@@ -12,7 +12,18 @@
   "it": "Italian",
   "language": "Language",
   "loading": "Loading",
+  "menu": {
+    "details": "Scan Details",
+    "list": "Scan List",
+    "scan": "Scan"
+  },
   "scan": {
+    "details": {
+      "description": "Description",
+      "impact": "Impact",
+      "nodes": "Nodes",
+      "title": "Scan Details"
+    },
     "form": {
       "add": "Add URL",
       "delete": "Remove URL",

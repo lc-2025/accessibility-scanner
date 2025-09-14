@@ -1,6 +1,5 @@
-import { Button as FormButton, Field, Input, Label } from '@headlessui/react';
+import { Button, Field, Input, Label } from '@headlessui/react';
 import { useTranslation } from 'react-i18next';
-import { TrashIcon } from '@heroicons/react/24/outline';
 import { BUTTON_ICON, FORM_ACTION } from '../../utils/constants';
 import type { TFormField } from '../../types/components/Form';
 import ButtonIcon from '../Layout/ButtonIcon';
@@ -43,9 +42,10 @@ function FormField({ callback, index, urls }: TFormField) {
           required={true}
           type="text"
         />
+        {/* This solution is more elegant and usable than an usual `textarea` technique (IMHO) */}
         {urls > 1 && index > 0 && (
           <ButtonIcon
-            // TODO: Props drilling - move to context
+            // TODO: Props drilling - better to move to context
             callback={() => callback(REMOVE)}
             label={t('scan.form.delete')}
             variant={BUTTON_ICON.VIEW}
