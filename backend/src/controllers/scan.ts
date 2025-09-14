@@ -146,7 +146,7 @@ const getScans = async (
   next: NextFunction,
 ): Promise<void> => {
   // Query validation
-  const validationParam = Joi.string().pattern(new RegExp('^[0-9]$'));
+  const validationParam = Joi.string().pattern(new RegExp('^([0-9]*)$'));
   const schema = Joi.object({
     skip: validationParam,
     limit: validationParam,
