@@ -71,7 +71,7 @@ function ScanDetails() {
           />
         </aside>
         {/* TODO: Data binding - Group by impact (severe/moderate) */}
-        {/* TODO: Add impact filter */}
+        {/* An impact filter might be added */}
         <dl className="data__list text-default -my-3 *:even:bg-gray-50">
           <div className="list__container grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
             <dt className="">ID</dt>

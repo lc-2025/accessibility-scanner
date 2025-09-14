@@ -1,5 +1,6 @@
 type TPagination = {
-  callback: (page: number, jump?: boolean) => void;
+  callback: (action: string, page?: number) => void;
+  page: number;
   pages: number;
 };
 

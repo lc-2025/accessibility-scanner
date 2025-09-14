@@ -74,17 +74,16 @@ function Breadcrumb() {
             {label}
           </span>
         ) : (
-          <>
+          <span key={crypto.randomUUID() + i + 1}>
             <NavLink
               className={`menu__link hover:text-primary $ px-4 py-4 transition-colors hover:underline`}
-              key={crypto.randomUUID() + i}
               title={label}
               to={path}
             >
               {label}
             </NavLink>
             <span className="breadcrumb__separator">&gt;</span>
-          </>
+          </span>
         ),
       )}
     </nav>

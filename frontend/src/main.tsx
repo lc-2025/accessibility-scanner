@@ -1,6 +1,8 @@
 import { StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from './client.ts';
 import Home from './components/Pages/Home.tsx';
 import Loading from './components/Layout/Loading.tsx';
 import Scan from './components/Pages/Scan/Scan.tsx';
@@ -31,9 +33,11 @@ createRoot(document.getElementById('root')!).render(
         />
         <Route
           element={
-            <Suspense fallback={<Loading />}>
-              <ScanLayout />
-            </Suspense>
+            <QueryClientProvider client={queryClient}>
+              <Suspense fallback={<Loading modal={true} />}>
+                <ScanLayout />
+              </Suspense>
+            </QueryClientProvider>
           }
           path={SCAN.PATH}
         >

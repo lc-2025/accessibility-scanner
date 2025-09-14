@@ -45,7 +45,7 @@ function FormField({ callback, index, urls }: TFormField) {
         {/* This solution is more elegant and usable than an usual `textarea` technique (IMHO) */}
         {urls > 1 && index > 0 && (
           <ButtonIcon
-            // TODO: Props drilling - better to move to context
+            // FIXME: Props drilling - better to move to context
             callback={() => callback(REMOVE)}
             label={t('scan.form.delete')}
             variant={BUTTON_ICON.VIEW}
