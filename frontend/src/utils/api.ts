@@ -1,6 +1,6 @@
 import { fetchClient } from '../client';
 import { ROUTE } from './constants';
-import type { TScans } from '../types/api';
+import type { TScan, TScans } from '../types/api';
 
 const { HOME, SCAN } = ROUTE;
 
@@ -20,4 +20,18 @@ const getScans = async (limit: number, skip: number): Promise<TScans> => {
   return data;
 };
 
-export { getScans };
+/**
+ * @description Scan getter
+ * Retrueves a single scan
+ * @author Luca Cattide
+ * @date 14/09/2025
+ * @param {string} id
+ * @returns {*}  {Promise<TScan>}
+ */
+const getScan = async (id: string): Promise<TScan> => {
+  const { data } = await fetchClient.get(`${HOME.PATH}${SCAN.PATH}/${id}`);
+
+  return data;
+};
+
+export { getScans , getScan};

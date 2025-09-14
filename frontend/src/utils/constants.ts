@@ -1,5 +1,6 @@
 const API = {
   TOKEN: {
+    GET_SCAN: 'getScan',
     GET_SCANS: 'getScans',
   },
 };
