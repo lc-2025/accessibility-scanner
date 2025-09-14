@@ -1,4 +1,8 @@
 {
+  "emptyState": {
+    "message": "Nessun dato disponibile.",
+    "title": "Dati mancanti"
+  },
   "en": "Inglese",
   "error": "Errore",
   "footer": "Accessibility Scanner © Luca Cattide per AccessiWay Coding Challenge 2025. Tutti i Diritti riservati.",

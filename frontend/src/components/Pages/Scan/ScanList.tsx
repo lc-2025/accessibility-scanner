@@ -18,6 +18,7 @@ import {
   ROUTE,
 } from '../../../utils/constants';
 import type { TScanState } from '../../../types/components/ScanList';
+import EmptyState from '../../Layout/EmptyState';
 
 /**
  * @description Scan list component
@@ -213,8 +214,7 @@ function ScanList() {
           {/* Results End */}
         </div>
       ) : (
-        /* TODO: Empty state comp. */
-        <>No data</>
+        <EmptyState />
       )}
     </section>
   );
