@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from 'react-router';
+import { NavLink } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { ROUTE } from '../../utils/constants';
 
@@ -10,8 +10,14 @@ import { ROUTE } from '../../utils/constants';
 function Menu() {
   const { HOME, SCAN } = ROUTE;
   const { t } = useTranslation();
-  const { pathname } = useLocation();
 
+  /**
+   * @description Menu label getter
+   * Retrieves the actual labe by the location path
+   * @author Luca Cattide
+   * @param {string} path
+   * @returns {*}  {string}
+   */
   const getLabel = (path: string): string =>
     path === HOME.PATH ? 'Home' : t('menu.scans');
 
