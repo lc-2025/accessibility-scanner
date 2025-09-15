@@ -12,8 +12,8 @@ function Error({ message }: TError) {
 
   return (
     // Error Start
-    <aside className="error flex h-auto w-full flex-col items-center mt-8 justify-center bg-white">
-      <h2 className="error__title text-default text-2xl mb-4">{t('error')}</h2>
+    <aside className="error text-default mt-8 flex h-auto w-full flex-col items-center justify-center bg-white">
+      <h2 className="error__title mb-4 text-2xl font-bold">{t('error')}</h2>
       <p className="error__message">{message}</p>
     </aside>
     // Error End

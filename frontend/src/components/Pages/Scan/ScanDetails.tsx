@@ -159,7 +159,7 @@ function ScanDetails() {
               ({ description, impact, nodes }, i) => (
                 // Violations Start
                 <div
-                  className="list__container--row border-t-2 px-4 py-4 odd:bg-gray-50"
+                  className="list__container--row border-t-2 border-gray-200 px-4 py-4 odd:bg-gray-50"
                   key={crypto.randomUUID() + i}
                 >
                   <div className="list__container grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
@@ -189,7 +189,7 @@ function ScanDetails() {
                       ({ failureSummary, html, target }, i) => (
                         // Node Start
                         <div
-                          className="list__container--row border-t px-4 py-4"
+                          className="list__container--row border-t border-gray-500 px-4 py-4"
                           key={crypto.randomUUID() + i + 1}
                         >
                           <div className="list__container grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">

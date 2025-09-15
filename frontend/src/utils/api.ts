@@ -22,7 +22,7 @@ const getScans = async (limit: number, skip: number): Promise<TScans> => {
 
 /**
  * @description Scan getter
- * Retrueves a single scan
+ * Retrieves a single scan
  * @author Luca Cattide
  * @date 14/09/2025
  * @param {string} id
@@ -34,4 +34,14 @@ const getScan = async (id: string): Promise<TScan> => {
   return data;
 };
 
-export { getScans , getScan};
+/**
+ * @description Scan deleter
+ * Remove a single scan
+ * @author Luca Cattide
+ * @param {string} id
+ * @returns {*}  {Promise<any>}
+ */
+const deleteScan = async (id: string): Promise<any> =>
+  await fetchClient.delete(`${HOME.PATH}${SCAN.PATH}/${id}`);
+
+export { getScans, getScan, deleteScan };

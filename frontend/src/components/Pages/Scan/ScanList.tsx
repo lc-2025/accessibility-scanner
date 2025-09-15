@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { useQueryClient, useQuery } from '@tanstack/react-query';
+import { useQueryClient, useQuery, useMutation } from '@tanstack/react-query';
+import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
+import { CheckIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Breadcrumb from '../../Layout/Breadcrumb';
 import Status from '../../Layout/Status';
 import ButtonIcon from '../../Layout/ButtonIcon';
 import Pagination from '../../Layout/Pagination';
 import Loading from '../../Layout/Loading';
 import Error from '../../Layout/Error';
-import { getScans } from '../../../utils/api';
+import EmptyState from '../../Layout/EmptyState';
+import { getScans, deleteScan } from '../../../utils/api';
 import {
   API,
   BUTTON_ICON,
@@ -18,7 +21,6 @@ import {
   ROUTE,
 } from '../../../utils/constants';
 import type { TScanState } from '../../../types/components/ScanList';
-import EmptyState from '../../Layout/EmptyState';
 
 /**
  * @description Scan list component
@@ -27,6 +29,7 @@ import EmptyState from '../../Layout/EmptyState';
  */
 function ScanList() {
   const { GET_SCANS } = API.TOKEN;
+  const { VIEW } = BUTTON_ICON;
   const { NEXT, PAGE, PREVIOUS } = PAGINATION;
   const { HOME, SCAN } = ROUTE;
   const { t, i18n } = useTranslation();
@@ -40,6 +43,12 @@ function ScanList() {
     queryKey: [GET_SCANS, pagination],
     queryFn: () => getScans(limit, skip),
   });
+  const mutation = useMutation({
+    mutationFn: deleteScan,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [GET_SCANS, pagination] });
+    },
+  });
   const scanResult = {
     headers: [
       'URL',
@@ -51,6 +60,7 @@ function ScanList() {
 
   useEffect(() => {
     // Query prefetching check
+    // TODO: Check dependencies - triggering twice
     if (!isPlaceholderData && data) {
       queryClient.prefetchQuery({
         queryKey: [getScans, pagination],
@@ -71,11 +81,20 @@ function ScanList() {
       .toLocaleString(LANGUAGES[i18n.language === LANGUAGES[0] ? 0 : 1])
       .split(',')[0];
 
+  /**
+   * @description Scan action handler
+   * Manages performable action with a single scan:
+   * - View details
+   * - Delete
+   * @author Luca Cattide
+   * @param {string} action
+   * @param {string} id
+   */
   const handleAction = (action: string, id: string): void => {
-    if (action === BUTTON_ICON.VIEW) {
+    if (action === VIEW) {
       navigate(`${HOME.PATH}${SCAN.PATH}/details/${id}`);
     } else {
-      // TODO: Deletion
+      mutation.mutate(id);
     }
   };
 
@@ -111,9 +130,9 @@ function ScanList() {
     const change = {
       /**
        * Calculation constraints:
-       * - Next page: lower than the set range until the total records
+       * - Next page: lower than the range set until the total records
        * - Page X: Traverse backward or forward based on the range correspondent to the page
-       * - Previous page: Greater than the set range until the first record
+       * - Previous page: Greater than the range set until the first record
        */
       [NEXT]: skip < data!.count + 10 ? skip + 10 : skip,
       // FIXME: Jumps over +/-10
@@ -138,7 +157,7 @@ function ScanList() {
       </h1>
       {status === 'pending' || isFetching ? (
         <Loading />
-      ) : data ? (
+      ) : data && data.data.length > 0 ? (
         // Results Start
         <div className="scan--list__container w-full flex-1 overflow-x-auto">
           <table className="scan--list__results mb-4 min-w-full table-auto">
@@ -191,14 +210,32 @@ function ScanList() {
                   <td className="row__data row__data--actions table-cell px-4 py-4 text-center whitespace-nowrap">
                     {Object.values(BUTTON_ICON)
                       .reverse()
-                      .map((value, i) => (
-                        <ButtonIcon
-                          callback={() => handleAction(value, id)}
-                          key={crypto.randomUUID() + i}
-                          label={t(`scan.list.action.${value}`)}
-                          variant={value}
-                        />
-                      ))}
+                      .map((value, i) =>
+                        value === VIEW ? (
+                          <ButtonIcon
+                            callback={() => handleAction(value, id)}
+                            key={crypto.randomUUID() + i}
+                            label={t(`scan.list.action.${value}`)}
+                            variant={value}
+                          />
+                        ) : (
+                          <Popover className="data_popover inline-block">
+                            <PopoverButton className="popover__button container__button ml-4 cursor-pointer rounded-2xl bg-red-500 px-4 py-2 text-white transition-opacity hover:opacity-75">
+                              <TrashIcon className="button__icon size-6" />
+                            </PopoverButton>
+                            <PopoverPanel
+                              anchor="bottom"
+                              className="popover__panel text-default flex rounded-2xl bg-white px-4 py-4 shadow-lg"
+                            >
+                              {t('scan.list.action.confirm')}
+                              <CheckIcon
+                                className="panel__icon ml-4 size-6 cursor-pointer text-green-500"
+                                onClick={() => handleAction(value, id)}
+                              />
+                            </PopoverPanel>
+                          </Popover>
+                        ),
+                      )}
                   </td>
                 </tr>
                 // Scan End

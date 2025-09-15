@@ -44,6 +44,7 @@
     },
     "list": {
       "action": {
+        "confirm": "Confirm?",
         "delete": "Delete scan",
         "view": "View scan details"
       },

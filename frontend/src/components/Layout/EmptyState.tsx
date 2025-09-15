@@ -1,3 +1,4 @@
+import { TableCellsIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 
 /**
@@ -11,9 +12,14 @@ function EmptyState() {
 
   return (
     // Empty State Start
-    <aside className="empty__state flex h-auto w-full flex-col items-center mt-8 justify-center bg-white">
-      <h2 className="empty__state__title text-default text-2xl mb-4">{t('emptyState.title')}</h2>
-      <p className="empty__state__message">{t('emptyState.message')}</p>
+    <aside className="empty-state mt-8 flex h-auto w-full flex-col items-center justify-center bg-white select-none">
+      <TableCellsIcon className="empty-state__icon text-accent mb-4 size-24" />
+      <h2 className="empty-state__title text-primary mb-4 text-2xl font-bold">
+        {t('emptyState.title')}
+      </h2>
+      <p className="empty-state__message text-default">
+        {t('emptyState.message')}
+      </p>
     </aside>
     // Empty State End
   );
