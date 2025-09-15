@@ -67,16 +67,23 @@ function ScanList() {
     ],
   };
 
-  /* useEffect(() => {
-    // Query prefetching check
-    // TODO: Check dependencies - triggering twice
-    if (!isPlaceholderData && data) {
+  useEffect(() => {
+    // Query prefetching check - Only for a minimum amount of 2 pages
+    if (!isPlaceholderData && data && data.count > 10) {
       queryClient.prefetchQuery({
-        queryKey: [getScans, pagination],
+        queryKey: [
+          getScans,
+          {
+            limit,
+            // Next page prefetching by default
+            skip: skip + 10,
+          },
+        ],
         queryFn: () => getScans(limit, skip),
+        staleTime: CACHE,
       });
     }
-  }, [data, isPlaceholderData, pagination, queryClient]); */
+  }, [data, isPlaceholderData, pagination, queryClient]);
 
   /**
    * @description Localized date helper
@@ -117,7 +124,7 @@ function ScanList() {
      * Ensure to not exceed limits
      * Greater than zero and lower than total records
      */
-    skip >= 10 && skip <= count ? skip / 10 : 1;
+    skip >= 10 && skip <= count ? (skip + 10) / 10 : 1;
 
   /**
    * @description Total pages handler
@@ -138,17 +145,17 @@ function ScanList() {
     const range = page ? page * 10 : 0;
     const change = {
       /**
-       * Calculation constraints:
+       * Calculation constraints
        * - Next page: lower than the range set until the total records
-       * - Page X: Traverse backward or forward based on the range correspondent to the page
+       * - Page X: Traverse backward or forward based on the range set correspondent to the page
        * - Previous page: Greater than the range set until the first record
        */
       [NEXT]: skip < data!.count + 10 ? skip + 10 : skip,
-      // FIXME: Jumps over +/-10
-      [PAGE]: range > skip + 10 ? range + 10 : range - 10,
-      [PREVIOUS]: skip > data!.count - 10 ? skip - 10 : skip,
+      [PAGE]:
+        range > skip + 10 && range + 10 < data!.count ? range + 10 : range - 10,
+      [PREVIOUS]: skip <= data!.count - 10 ? skip - 10 : skip,
     };
-
+    console.log(change[action]);
     setPagination((state) => ({
       ...state,
       skip: change[action],
@@ -168,7 +175,7 @@ function ScanList() {
         <Loading />
       ) : data && data.data.length > 0 ? (
         // Results Start
-        <div className="scan--list__container w-full flex-1 overflow-x-auto">
+        <div className="scan--list__container w-full flex-1 overflow-x-auto lg:w-2/3">
           <table className="scan--list__results mb-4 min-w-full table-auto">
             <caption className="results__caption sr-only select-none">
               {t('scan.list.caption')}

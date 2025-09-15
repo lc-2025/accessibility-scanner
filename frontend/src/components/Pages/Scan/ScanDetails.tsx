@@ -152,7 +152,7 @@ function ScanDetails() {
             <div className="container__data sm:col-span-2">{id}</div>
           </div>
           {/* ID End */}
-          {data.violations && (
+          {data.violations && data.violations.length > 0 && (
             <>
               <div className="list__container grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
                 <div className="container__title font-bold">Violations</div>

@@ -50,7 +50,7 @@ const PAGINATION = {
   PREVIOUS: 'previous',
 };
 
-const CACHE = 5 * 60 * 1000;
+const CACHE = 2 * 60 * 1000;
 
 const REGEX = {
   URL: /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/g,
