@@ -21,13 +21,13 @@ import { getScans, deleteScan } from '../../../utils/api';
 import {
   API,
   BUTTON_ICON,
-  CACHE,
   DEFAULT_STATE,
   LANGUAGES,
   PAGINATION,
   ROUTE,
 } from '../../../utils/constants';
 import type { TScanState } from '../../../types/components/ScanList';
+import {enableCache} from '../../../utils/utilities';
 
 /**
  * @description Scan list component
@@ -50,7 +50,7 @@ function ScanList() {
     queryKey: [GET_SCANS, pagination],
     queryFn: () => getScans(limit, skip),
     placeholderData: keepPreviousData,
-    staleTime: CACHE,
+    staleTime: enableCache(),
   });
   const mutation = useMutation({
     mutationFn: deleteScan,
@@ -80,7 +80,7 @@ function ScanList() {
           },
         ],
         queryFn: () => getScans(limit, skip),
-        staleTime: CACHE,
+        staleTime: enableCache(),
       });
     }
   }, [data, isPlaceholderData, pagination, queryClient]);

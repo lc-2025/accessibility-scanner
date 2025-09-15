@@ -2,13 +2,16 @@ import { useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Parser } from '@json2csv/plainjs';
+import { flatten } from '@json2csv/transforms';
 import Breadcrumb from '../../Layout/Breadcrumb';
 import Button from '../../Layout/Button';
 import Loading from '../../Layout/Loading';
 import Error from '../../Layout/Error';
 import EmptyState from '../../Layout/EmptyState';
+import { enableCache } from '../../../utils/utilities';
 import { getScan } from '../../../utils/api';
-import { API, BUTTON_TYPE, CACHE } from '../../../utils/constants';
+import { API, BUTTON_TYPE } from '../../../utils/constants';
 import type {
   TScan,
   TScanViolation,
@@ -28,71 +31,42 @@ function ScanDetails() {
   const { data, error, isLoading } = useQuery({
     queryKey: [GET_SCAN, id],
     queryFn: () => getScan(id!),
-    staleTime: CACHE,
+    staleTime: enableCache(),
   });
 
   /**
    * @description CSV generator
    * Convers the data JSON to CSV string
    * @author Luca Cattide
-   * @date 14/09/2025
    * @param {TScan} json
    * @returns {*}  {string}
    */
   const generateCsv = (json: TScan): string => {
-    const { _id, __v, updatedAt, ...rest } = json as Record<any, any>;
-
-    const newHeader = (object: TScanViolation[] | TScanViolationNode[]) =>
-      object.reduce((accumulator, value) => {
-        Object.assign(accumulator, value);
-
-        return accumulator;
-      }, {});
-
-    const headersViolations = newHeader(json.violations as TScanViolation[]);
-    const headersNodes = newHeader(
-      json.violations?.map(({ nodes }) => nodes).flat() as TScanViolationNode[],
-    );
-    const headers = Object.keys({
-      ...rest,
-      ...headersViolations,
-      ...headersNodes,
+    const parser = new Parser({
+      transforms: [flatten({ objects: true, arrays: true })],
     });
-    let csv = '';
-
-    csv += `${headers
-      .filter(
-        (header) =>
-          !['all', 'any', 'nodes', 'none', 'violations'].includes(header),
-      )
-      .join(',')}\n`;
-
-    [json].forEach((scan: any) => {
-      // TODO: Same as headers
-      const data = headers.map((header) => scan[header]).join(',');
-
-      csv += `${data}\n`;
-    });
+    const csv = parser.parse(json);
 
     return csv;
   };
 
   /**
-   * @description Scan details into CSV download handler
+   * @description Scan details CSV download handler
    * @author Luca Cattide
-   * @date 14/09/2025
    */
-  const handiveDownload = (): void => {
-    const csv = generateCsv(data!);
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
+  const handleDownload = (): void => {
+    const url = window.URL.createObjectURL(
+      new Blob([generateCsv(data!)], { type: 'text/csv' }),
+    );
+    const link = document.createElement('a');
 
-    a.href = url;
-    a.download = `scan-${data!.url}-${data!.id}.csv`;
+    link.href = url;
+    link.download = `scan-${data!.url}-${data!.id}.csv`;
 
-    document.body.appendChild(a);
-    a.click();
+    document.body.appendChild(link);
+    link.click();
+    // Remove to avoid security issues
+    document.body.removeChild(link);
   };
 
   /**
@@ -100,7 +74,7 @@ function ScanDetails() {
    * @author Luca Cattide
    * @returns {*}  {Array<TScanViolation>}
    */
-  const handiveViolations = (
+  const handleViolations = (
     data: Array<TScanViolation | TScanViolationNode>,
   ): Array<TScanViolation | TScanViolationNode> => {
     const order = [
@@ -138,7 +112,7 @@ function ScanDetails() {
         <aside className="data__download mx-auto mb-8 w-fit">
           <h6 className="download__title hidden">Download</h6>
           <Button
-            callback={handiveDownload}
+            callback={handleDownload}
             label="Download as CSV"
             variant={BUTTON_TYPE.DEFAULT}
           />
@@ -158,39 +132,39 @@ function ScanDetails() {
                 <div className="container__title font-bold">Violations</div>
                 <div className="container__data sm:col-span-2"></div>
               </div>
-              {(
-                handiveViolations(data.violations) as Array<TScanViolation>
-              ).map(({ description, impact, nodes }, i) => (
-                // Violations Start
-                <div
-                  className="list__container--row border-t-2 border-gray-200 px-4 py-4 odd:bg-gray-50"
-                  key={crypto.randomUUID() + i}
-                >
-                  <div className="list__container grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
-                    <div className="container__title">
-                      {t('scan.details.impact')}
+              {(handleViolations(data.violations) as Array<TScanViolation>).map(
+                ({ description, impact, nodes }, i) => (
+                  // Violations Start
+                  <div
+                    className="list__container--row border-t-2 border-gray-200 px-4 py-4 odd:bg-gray-50"
+                    key={crypto.randomUUID() + i}
+                  >
+                    <div className="list__container grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
+                      <div className="container__title">
+                        {t('scan.details.impact')}
+                      </div>
+                      <div className="container__data capitalize sm:col-span-2">
+                        {impact}
+                      </div>
                     </div>
-                    <div className="container__data capitalize sm:col-span-2">
-                      {impact}
+                    <div className="list__container grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
+                      <div className="container__title">
+                        {t('scan.details.description')}
+                      </div>
+                      <div className="container__data sm:col-span-2">
+                        {description}
+                      </div>
                     </div>
-                  </div>
-                  <div className="list__container grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
-                    <div className="container__title">
-                      {t('scan.details.description')}
+                    <div className="list__container grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
+                      <div className="container__title font-bold">
+                        {t('scan.details.nodes')}
+                      </div>
+                      <div className="container__data sm:col-span-2"></div>
                     </div>
-                    <div className="container__data sm:col-span-2">
-                      {description}
-                    </div>
-                  </div>
-                  <div className="list__container grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
-                    <div className="container__title font-bold">
-                      {t('scan.details.nodes')}
-                    </div>
-                    <div className="container__data sm:col-span-2"></div>
-                  </div>
-                  {nodes &&
-                    (handiveViolations(nodes) as Array<TScanViolationNode>).map(
-                      ({ failureSummary, html, target }, i) => (
+                    {nodes &&
+                      (
+                        handleViolations(nodes) as Array<TScanViolationNode>
+                      ).map(({ failureSummary, html, target }, i) => (
                         // Node Start
                         <div
                           className="list__container--row border-t border-gray-500 px-4 py-4"
@@ -220,11 +194,11 @@ function ScanDetails() {
                           </div>
                         </div>
                         // Node End
-                      ),
-                    )}
-                </div>
-                // Violations End
-              ))}
+                      ))}
+                  </div>
+                  // Violations End
+                ),
+              )}
             </>
           )}
         </div>

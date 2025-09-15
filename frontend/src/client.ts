@@ -5,7 +5,7 @@ import { TIMEOUT } from './utils/constants';
 // Fetching Client
 const fetchClient = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_URL,
-  timeout: TIMEOUT,
+  timeout: import.meta.env.PROD ? TIMEOUT : undefined,
   // May be improved with XSFR token
 });
 
