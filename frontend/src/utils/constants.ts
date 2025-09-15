@@ -78,6 +78,20 @@ const STATUS = {
   RUNNING: 'running',
 };
 
+const TEST = {
+  ID: {
+    BREADCRUMB: 'test-breadcrumb',
+    CTA: {
+      HOME: 'test-cta-home',
+      HOME_SUMMARY: 'test-cta-home-summary',
+    },
+    HOME: 'test-home',
+    MENU: 'test-menu',
+    SCAN: 'test-scan',
+    SCAN_LIST: 'test-scan-list',
+  },
+};
+
 const TIMEOUT = 15 * 60 * 1000;
 
 export {
@@ -93,5 +107,6 @@ export {
   REGEX,
   ROUTE,
   STATUS,
+  TEST,
   TIMEOUT,
 };

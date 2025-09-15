@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { ROUTE } from '../../utils/constants';
+import { ROUTE, TEST } from '../../utils/constants';
 
 /**
  * @description Menu component
@@ -26,7 +26,10 @@ function Menu() {
       <h6 className="menu__title hidden">Main Menu</h6>
       {[HOME, SCAN.LIST].map(({ PATH }, i) => (
         <NavLink
-          className={({isActive}) => `menu__link hover:text-primary py-4 transition-colors hover:underline sm:mr-4 sm:ml-4 sm:pr-4 sm:pl-4 ${isActive && 'text-primary pointer-events-none'}`}
+          className={({ isActive }) =>
+            `menu__link hover:text-primary py-4 transition-colors hover:underline sm:mr-4 sm:ml-4 sm:pr-4 sm:pl-4 ${isActive && 'text-primary pointer-events-none'}`
+          }
+          data-testid={TEST.ID.MENU}
           key={crypto.randomUUID() + i}
           title={getLabel(PATH)}
           to={PATH}

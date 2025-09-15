@@ -1,6 +1,6 @@
 import { NavLink, useLocation } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { ROUTE } from '../../utils/constants';
+import { ROUTE, TEST } from '../../utils/constants';
 import type { TBreadcrumbPath } from '../../types/components/Breadcrumb';
 
 /**
@@ -77,6 +77,7 @@ function Breadcrumb() {
           <span key={crypto.randomUUID() + i + 1}>
             <NavLink
               className={`menu__link hover:text-primary $ px-4 py-4 transition-colors hover:underline`}
+              data-testid={TEST.ID.BREADCRUMB}
               title={label}
               to={path}
             >

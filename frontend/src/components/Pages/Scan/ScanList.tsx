@@ -25,9 +25,10 @@ import {
   LANGUAGES,
   PAGINATION,
   ROUTE,
+  TEST,
 } from '../../../utils/constants';
 import type { TScanState } from '../../../types/components/ScanList';
-import {enableCache} from '../../../utils/utilities';
+import { enableCache } from '../../../utils/utilities';
 
 /**
  * @description Scan list component
@@ -166,7 +167,10 @@ function ScanList() {
     <Error message={error.message} />
   ) : (
     // Scan List Start
-    <section className="scan--list flex w-full flex-col items-center py-4">
+    <section
+      className="scan--list flex w-full flex-col items-center py-4"
+      data-testid={TEST.ID.SCAN_LIST}
+    >
       <Breadcrumb />
       <h1 className="scan--list__title text-default mb-8 text-center text-2xl font-bold">
         {t('scan.list.title')}

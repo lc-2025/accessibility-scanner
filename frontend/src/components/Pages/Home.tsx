@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import Button from '../Layout/Button';
-import { ROUTE, BUTTON_TYPE } from '../../utils/constants';
+import { ROUTE, BUTTON_TYPE, TEST } from '../../utils/constants';
 import '../../css/components/Home.css';
 
 /**
@@ -10,6 +10,7 @@ import '../../css/components/Home.css';
  */
 function Home() {
   const { ANCHOR, LINK } = BUTTON_TYPE;
+  const { HOME } = TEST.ID;
   const { t } = useTranslation();
 
   /**
@@ -29,7 +30,10 @@ function Home() {
   return (
     <>
       {/* Home Start */}
-      <div className="home flex w-full snap-proximity flex-col items-center">
+      <div
+        className="home flex w-full snap-proximity flex-col items-center"
+        data-testid={HOME}
+      >
         <h6 className="home__title hidden">Home page</h6>
         {/* Headline Start */}
         <section className="home__headline flex min-h-[40rem] w-full flex-col items-center justify-center bg-fixed px-4">

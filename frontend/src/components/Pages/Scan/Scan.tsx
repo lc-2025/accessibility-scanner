@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Form from '../../Form/Form';
-import { BUTTON_TYPE, DEFAULT_STATE, ROUTE } from '../../../utils/constants';
+import { BUTTON_TYPE, DEFAULT_STATE, ROUTE, TEST } from '../../../utils/constants';
 import Button from '../../Layout/Button';
 import Breadcrumb from '../../Layout/Breadcrumb';
 /**
@@ -15,7 +15,7 @@ function Scan() {
 
   return (
     // Scan Start
-    <section className="scan w-full flex-1 px-4 py-4">
+    <section className="scan w-full flex-1 px-4 py-4" data-testid={TEST.ID.SCAN}>
       <Breadcrumb />
       <h1 className="scan__title text-default mb-4 text-center text-2xl font-bold">
         {t('scan.title')}

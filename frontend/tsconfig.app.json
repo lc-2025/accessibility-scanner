@@ -24,7 +24,7 @@
     "noUncheckedSideEffectImports": true,
 
     /* Testing */
-    "types": ["@testing-library/jest-dom"]
+    "types": ["cypress", "@testing-library/cypress", "@testing-library/jest-dom"]
   },
-  "include": ["src"]
+  "include": ["./cypress/**/*", "src"]
 }
