@@ -20,7 +20,8 @@
   "menu": {
     "details": "Scan Details",
     "list": "Scan List",
-    "scan": "Scan"
+    "scan": "Scan",
+    "scans": "Scans"
   },
   "scan": {
     "details": {

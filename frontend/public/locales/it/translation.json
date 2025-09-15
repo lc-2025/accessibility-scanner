@@ -20,7 +20,8 @@
   "menu": {
     "details": "Dettagli Scansione",
     "list": "Lista Scansioni",
-    "scan": "Scansiona"
+    "scan": "Scansiona",
+    "scans": "Scansioni"
   },
   "scan": {
     "details": {
