@@ -226,7 +226,10 @@ function ScanList() {
                             variant={value}
                           />
                         ) : (
-                          <Popover className="data_popover inline-block">
+                          <Popover
+                            className="data_popover inline-block"
+                            key={crypto.randomUUID() + i}
+                          >
                             <PopoverButton className="popover__button container__button ml-4 cursor-pointer rounded-2xl bg-red-500 px-4 py-2 text-white transition-opacity hover:opacity-75">
                               <TrashIcon className="button__icon size-6" />
                             </PopoverButton>

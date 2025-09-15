@@ -4,4 +4,8 @@ type TFormField = {
   urls: number;
 };
 
-export type { TFormField };
+type TFormFieldset = {
+  url: string;
+}
+
+export type { TFormField, TFormFieldset };

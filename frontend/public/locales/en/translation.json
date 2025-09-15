@@ -40,6 +40,7 @@
         }
       },
       "legend": "Test your destinations accessibility",
+      "loading": "Scan(s) started. Please wait until the tests will be finished...",
       "submit": "Start"
     },
     "list": {
@@ -69,7 +70,8 @@
     },
     "result": {
       "label": "View Results",
-      "message": "Your test reports are ready. Consult them now or start a new scan."
+      "message": "Your test reports are ready. Consult them now or start a new scan.",
+      "new": "New Scan"
     },
     "title": "Scan"
   },

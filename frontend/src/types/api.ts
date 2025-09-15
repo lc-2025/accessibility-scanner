@@ -1,3 +1,13 @@
+type TApiResponse = TScans | TScan | TMessage | TResult;
+
+type TMessage = {
+  message: string;
+};
+
+type TResult = {
+  result: string;
+};
+
 type TScan = {
   id: string;
   createdAt: string;
@@ -33,4 +43,4 @@ type TScans = {
   data: Array<TScan>;
 };
 
-export type { TScan, TScans, TScanViolation, TScanViolationNode };
+export type { TApiResponse, TScan, TScans, TScanViolation, TScanViolationNode };

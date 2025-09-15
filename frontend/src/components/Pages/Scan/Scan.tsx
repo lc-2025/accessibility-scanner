@@ -20,8 +20,7 @@ function Scan() {
       <h1 className="scan__title text-default mb-4 text-center text-2xl font-bold">
         {t('scan.title')}
       </h1>
-      <Form callback={setResult} />
-      {result && (
+      {result ? (
         // Result Start
         <div className="scan__result mx-auto mt-8 flex w-fit flex-col items-center">
           <p className="result__message text-default mb-4 text-center">
@@ -32,8 +31,17 @@ function Scan() {
             link={ROUTE.SCAN.LIST.PATH}
             variant={BUTTON_TYPE.LINK}
           />
+          <div className="mt-4">
+            <Button
+              callback={() => setResult(false)}
+              label={t('scan.result.new')}
+              variant={BUTTON_TYPE.DEFAULT}
+            />
+          </div>
         </div>
+      ) : (
         // Result End
+        <Form callback={setResult} />
       )}
     </section>
     // Scan End

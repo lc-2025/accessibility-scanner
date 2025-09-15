@@ -40,6 +40,7 @@
         }
       },
       "legend": "Verifica l'accessibilità della tua destinazione",
+      "loading": "Scansione(i) partita(e). Attendi fino al completamento delle verifiche...",
       "submit": "Avvia"
     },
     "list": {
@@ -69,7 +70,8 @@
     },
     "result": {
       "label": "Visualizza Risultati",
-      "message": "I tuoi resoconti sui test sono pronti. Consultali ora o inizia una nuova scansione."
+      "message": "I tuoi resoconti sui test sono pronti. Consultali ora o inizia una nuova scansione.",
+      "new": "Nuova Scansione"
     },
     "title": "Scansione"
   },

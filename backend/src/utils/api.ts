@@ -7,6 +7,16 @@ import TQueryFilter from '../types/api/Query';
 import { Status, TScanResults } from '../types/models/Scan';
 
 /**
+ * @description Date setter
+ * Convers timestamp string to valid Date ISO format
+ * @author Luca Cattide
+ * @param {string} timestamp
+ * @returns {*}  {(Date | string)}
+ */
+const setDate = (timestamp: string): Date | string =>
+  timestamp && timestamp !== '' ? new Date(timestamp) : timestamp;
+
+/**
  * @description Query filter setter
  * Sets the query search element to match
  * @author Luca Cattide
@@ -99,4 +109,4 @@ const testUrls = async (urls: Array<string>): Promise<TScanResults[]> =>
     }),
   );
 
-export { setFilter, validateRequest, testUrls };
+export { setDate, setFilter, validateRequest, testUrls };

@@ -1,8 +1,9 @@
 import { Field, Input, Label } from '@headlessui/react';
 import { useTranslation } from 'react-i18next';
-import { BUTTON_ICON, FORM_ACTION } from '../../utils/constants';
-import type { TFormField } from '../../types/components/Form';
+import { useFormContext } from 'react-hook-form';
 import ButtonIcon from '../Layout/ButtonIcon';
+import { BUTTON_ICON, ERROR, FORM_ACTION, REGEX } from '../../utils/constants';
+import type { TFormField } from '../../types/components/Form';
 
 /**
  * @description Form field component
@@ -11,8 +12,13 @@ import ButtonIcon from '../Layout/ButtonIcon';
  * @returns {*}
  */
 function FormField({ callback, index, urls }: TFormField) {
+  const { REQUIRED, VALIDATION } = ERROR.FORM;
   const { REMOVE } = FORM_ACTION;
   const { t } = useTranslation();
+  const {
+    formState: { errors },
+    register,
+  } = useFormContext();
 
   /**
    * @description Field name setter
@@ -23,9 +29,13 @@ function FormField({ callback, index, urls }: TFormField) {
   const setFieldName = (count?: boolean): string =>
     count ? `${index + 1}` : `url-${index + 1}`;
 
+  /**
+   * @description Field deletion handler
+   * @author Luca Cattide
+   */
   const handleDelete = (): void => {
     callback(REMOVE);
-  }
+  };
 
   return (
     // Field Start
@@ -38,12 +48,25 @@ function FormField({ callback, index, urls }: TFormField) {
       </Label>
       <div className="field__container mt-4 flex items-center">
         <Input
+          aria-describedby={
+            errors[setFieldName() as keyof typeof errors]
+              ? `field__error--${setFieldName()}`
+              : undefined
+          }
+          aria-invalid={
+            errors[setFieldName() as keyof typeof errors] ? 'true' : 'false'
+          }
           aria-required={urls === 1 ? 'true' : 'false'}
           className="field__input border-default focus-visible:outline-primary focus:border-primary w-full rounded-2xl border-2 px-4 py-2 focus-visible:outline"
-          id={`url-${setFieldName()}`}
-          name={`url-${setFieldName()}`}
+          id={setFieldName()}
           placeholder={t('scan.form.input.url.placeholder')}
-          required={true}
+          {...register(setFieldName(), {
+            pattern: {
+              value: REGEX.URL,
+              message: VALIDATION,
+            },
+            required: REQUIRED,
+          })}
           type="text"
         />
         {/* This solution is more elegant and usable than an usual `textarea` technique (IMHO) */}
@@ -55,6 +78,14 @@ function FormField({ callback, index, urls }: TFormField) {
           />
         )}
       </div>
+      {errors[setFieldName() as keyof typeof errors] && (
+        <p
+          aria-live="assertive"
+          className={`field__error field__error--${setFieldName()} text-red-500 basis-full pt-4`}
+        >
+          {`${errors[setFieldName() as keyof typeof errors]!.message}`}
+        </p>
+      )}
     </Field>
     // Field End
   );

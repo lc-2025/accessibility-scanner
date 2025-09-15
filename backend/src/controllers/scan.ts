@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { randomUUID } from 'node:crypto';
 import Joi from 'joi';
 import scanModel from '../models/Scan';
-import { setFilter, testUrls, validateRequest } from '../utils/api';
+import { setDate, setFilter, testUrls, validateRequest } from '../utils/api';
 import { MESSAGE, DATA_VALIDATION } from '../utils/constants';
 
 /**
@@ -28,19 +28,20 @@ const postScan = async (
 
     validateRequest(req, res, schema);
 
-    const scans = await testUrls(urls);
     const session = await scanModel.db.startSession();
 
     session.startTransaction();
 
     try {
+      const scans = await testUrls(urls);
+
       scans.forEach(async ({ url, status, timestamp, violations }) => {
         const scan = new scanModel({
           id: randomUUID(),
           url,
           status,
-          createdAt: new Date(timestamp),
-          updatedAt: new Date(timestamp),
+          createdAt: setDate(timestamp),
+          updatedAt: setDate(timestamp),
           violations,
         });
 

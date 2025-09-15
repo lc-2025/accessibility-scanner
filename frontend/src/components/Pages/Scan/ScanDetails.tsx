@@ -1,6 +1,7 @@
 import { useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Breadcrumb from '../../Layout/Breadcrumb';
 import Button from '../../Layout/Button';
 import Loading from '../../Layout/Loading';
@@ -150,13 +151,15 @@ function ScanDetails() {
             <div className="container__data sm:col-span-2">{id}</div>
           </div>
           {/* ID End */}
-          <div className="list__container grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
-            <div className="container__title font-bold">Violations</div>
-            <div className="container__data sm:col-span-2"></div>
-          </div>
-          {data.violations &&
-            (handiveViolations(data.violations) as Array<TScanViolation>).map(
-              ({ description, impact, nodes }, i) => (
+          {data.violations && (
+            <>
+              <div className="list__container grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
+                <div className="container__title font-bold">Violations</div>
+                <div className="container__data sm:col-span-2"></div>
+              </div>
+              {(
+                handiveViolations(data.violations) as Array<TScanViolation>
+              ).map(({ description, impact, nodes }, i) => (
                 // Violations Start
                 <div
                   className="list__container--row border-t-2 border-gray-200 px-4 py-4 odd:bg-gray-50"
@@ -220,10 +223,12 @@ function ScanDetails() {
                     )}
                 </div>
                 // Violations End
-              ),
-            )}
+              ))}
+            </>
+          )}
         </div>
       </div>
+      <ReactQueryDevtools />
     </section>
   ) : (
     <EmptyState />

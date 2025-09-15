@@ -18,6 +18,7 @@ const BUTTON_TYPE = {
 
 const DEFAULT_STATE = {
   FORM: {
+    MESSAGE: '',
     URLS: 1,
   },
   PAGINATION: {
@@ -26,6 +27,13 @@ const DEFAULT_STATE = {
   },
   SCAN: {
     RESULT: false,
+  },
+};
+
+const ERROR = {
+  FORM: {
+    REQUIRED: 'Please enter a valid URL',
+    VALIDATION: 'Invalid URL',
   },
 };
 
@@ -44,6 +52,10 @@ const PAGINATION = {
 
 const RATE_LIMIT = {
   WINDOW: 15 * 60 * 1000,
+};
+
+const REGEX = {
+  URL: /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/g,
 };
 
 const ROUTE = {
@@ -73,10 +85,12 @@ export {
   BUTTON_ICON,
   BUTTON_TYPE,
   DEFAULT_STATE,
+  ERROR,
   FORM_ACTION,
   LANGUAGES,
   PAGINATION,
   RATE_LIMIT,
+  REGEX,
   ROUTE,
   STATUS,
 };
