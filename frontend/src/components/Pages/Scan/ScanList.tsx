@@ -155,7 +155,7 @@ function ScanList() {
         range > skip + 10 && range + 10 < data!.count ? range + 10 : range - 10,
       [PREVIOUS]: skip <= data!.count - 10 ? skip - 10 : skip,
     };
-    console.log(change[action]);
+
     setPagination((state) => ({
       ...state,
       skip: change[action],
