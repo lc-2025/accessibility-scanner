@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button as FormButton, Fieldset, Legend } from '@headlessui/react';
 import { useTranslation } from 'react-i18next';
 import Button from '../Layout/Button';
-import { BUTTON_TYPE, FORM_ACTION } from '../../utils/constants';
+import { BUTTON_TYPE, DEFAULT_STATE, FORM_ACTION } from '../../utils/constants';
 import FormField from './FormField';
 import type { Dispatch, SetStateAction } from 'react';
 
@@ -15,7 +15,7 @@ import type { Dispatch, SetStateAction } from 'react';
 function Form({ callback }: { callback: Dispatch<SetStateAction<boolean>> }) {
   const { ADD } = FORM_ACTION;
   const { t } = useTranslation();
-  const [urls, setUrls] = useState<number>(1);
+  const [urls, setUrls] = useState<number>(DEFAULT_STATE.FORM.URLS);
 
   const handleSubmit = (e): void => {
     // TODO:

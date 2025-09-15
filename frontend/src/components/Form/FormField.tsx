@@ -1,4 +1,4 @@
-import { Button, Field, Input, Label } from '@headlessui/react';
+import { Field, Input, Label } from '@headlessui/react';
 import { useTranslation } from 'react-i18next';
 import { BUTTON_ICON, FORM_ACTION } from '../../utils/constants';
 import type { TFormField } from '../../types/components/Form';
@@ -23,6 +23,10 @@ function FormField({ callback, index, urls }: TFormField) {
   const setFieldName = (count?: boolean): string =>
     count ? `${index + 1}` : `url-${index + 1}`;
 
+  const handleDelete = (): void => {
+    callback(REMOVE);
+  }
+
   return (
     // Field Start
     <Field className="fields__field mb-8" key={crypto.randomUUID() + index}>
@@ -45,10 +49,9 @@ function FormField({ callback, index, urls }: TFormField) {
         {/* This solution is more elegant and usable than an usual `textarea` technique (IMHO) */}
         {urls > 1 && index > 0 && (
           <ButtonIcon
-            // FIXME: Props drilling - better to move to context
-            callback={() => callback(REMOVE)}
+            callback={handleDelete}
             label={t('scan.form.delete')}
-            variant={BUTTON_ICON.VIEW}
+            variant={BUTTON_ICON.DELETE}
           />
         )}
       </div>

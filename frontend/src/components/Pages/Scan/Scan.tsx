@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Form from '../../Form/Form';
-import { BUTTON_TYPE, ROUTE } from '../../../utils/constants';
+import { BUTTON_TYPE, DEFAULT_STATE, ROUTE } from '../../../utils/constants';
 import Button from '../../Layout/Button';
 import Breadcrumb from '../../Layout/Breadcrumb';
 /**
@@ -11,11 +11,11 @@ import Breadcrumb from '../../Layout/Breadcrumb';
  */
 function Scan() {
   const { t } = useTranslation();
-  const [result, setResult] = useState<boolean>(false);
+  const [result, setResult] = useState<boolean>(DEFAULT_STATE.SCAN.RESULT);
 
   return (
     // Scan Start
-    <section className="scan flex-1 px-4 py-4 w-full">
+    <section className="scan w-full flex-1 px-4 py-4">
       <Breadcrumb />
       <h1 className="scan__title text-default mb-4 text-center text-2xl font-bold">
         {t('scan.title')}

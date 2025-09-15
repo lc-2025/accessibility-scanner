@@ -17,9 +17,15 @@ const BUTTON_TYPE = {
 };
 
 const DEFAULT_STATE = {
+  FORM: {
+    URLS: 1,
+  },
   PAGINATION: {
     limit: 10,
     skip: 0,
+  },
+  SCAN: {
+    RESULT: false,
   },
 };
 
