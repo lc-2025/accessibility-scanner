@@ -21,6 +21,7 @@ import { getScans, deleteScan } from '../../../utils/api';
 import {
   API,
   BUTTON_ICON,
+  CACHE,
   DEFAULT_STATE,
   LANGUAGES,
   PAGINATION,
@@ -49,6 +50,7 @@ function ScanList() {
     queryKey: [GET_SCANS, pagination],
     queryFn: () => getScans(limit, skip),
     placeholderData: keepPreviousData,
+    staleTime: CACHE,
   });
   const mutation = useMutation({
     mutationFn: deleteScan,
@@ -65,7 +67,7 @@ function ScanList() {
     ],
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     // Query prefetching check
     // TODO: Check dependencies - triggering twice
     if (!isPlaceholderData && data) {
@@ -74,7 +76,7 @@ function ScanList() {
         queryFn: () => getScans(limit, skip),
       });
     }
-  }, [data, isPlaceholderData, pagination, queryClient]);
+  }, [data, isPlaceholderData, pagination, queryClient]); */
 
   /**
    * @description Localized date helper

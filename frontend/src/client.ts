@@ -1,11 +1,11 @@
 import { QueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import { RATE_LIMIT } from './utils/constants';
+import { TIMEOUT } from './utils/constants';
 
 // Fetching Client
 const fetchClient = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_URL,
-  timeout: RATE_LIMIT.WINDOW,
+  timeout: TIMEOUT,
   // May be improved with XSFR token
 });
 

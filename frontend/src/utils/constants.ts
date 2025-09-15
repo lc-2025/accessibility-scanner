@@ -50,9 +50,7 @@ const PAGINATION = {
   PREVIOUS: 'previous',
 };
 
-const RATE_LIMIT = {
-  WINDOW: 15 * 60 * 1000,
-};
+const CACHE = 5 * 60 * 1000;
 
 const REGEX = {
   URL: /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/g,
@@ -80,17 +78,20 @@ const STATUS = {
   RUNNING: 'running',
 };
 
+const TIMEOUT = 15 * 60 * 1000;
+
 export {
   API,
   BUTTON_ICON,
   BUTTON_TYPE,
+  CACHE,
   DEFAULT_STATE,
   ERROR,
   FORM_ACTION,
   LANGUAGES,
   PAGINATION,
-  RATE_LIMIT,
   REGEX,
   ROUTE,
   STATUS,
+  TIMEOUT,
 };

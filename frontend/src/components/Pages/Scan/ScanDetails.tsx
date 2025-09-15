@@ -8,7 +8,7 @@ import Loading from '../../Layout/Loading';
 import Error from '../../Layout/Error';
 import EmptyState from '../../Layout/EmptyState';
 import { getScan } from '../../../utils/api';
-import { API, BUTTON_TYPE } from '../../../utils/constants';
+import { API, BUTTON_TYPE, CACHE } from '../../../utils/constants';
 import type {
   TScan,
   TScanViolation,
@@ -26,8 +26,9 @@ function ScanDetails() {
   const { id } = params;
   const { t } = useTranslation();
   const { data, error, isLoading } = useQuery({
-    queryKey: [GET_SCAN],
+    queryKey: [GET_SCAN, id],
     queryFn: () => getScan(id!),
+    staleTime: CACHE,
   });
 
   /**
