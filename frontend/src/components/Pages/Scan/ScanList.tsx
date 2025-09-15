@@ -48,6 +48,7 @@ function ScanList() {
   const { data, error, isFetching, isPlaceholderData, status } = useQuery({
     queryKey: [GET_SCANS, pagination],
     queryFn: () => getScans(limit, skip),
+    placeholderData: keepPreviousData,
   });
   const mutation = useMutation({
     mutationFn: deleteScan,
