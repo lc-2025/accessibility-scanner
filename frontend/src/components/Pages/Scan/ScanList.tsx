@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { useQueryClient, useQuery, useMutation } from '@tanstack/react-query';
+import {
+  keepPreviousData,
+  useQueryClient,
+  useQuery,
+  useMutation,
+} from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { CheckIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Breadcrumb from '../../Layout/Breadcrumb';
@@ -253,6 +259,7 @@ function ScanList() {
       ) : (
         <EmptyState />
       )}
+      <ReactQueryDevtools />
     </section>
   );
   // Scan List End
