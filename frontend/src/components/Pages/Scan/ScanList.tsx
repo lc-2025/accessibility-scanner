@@ -40,6 +40,7 @@ function ScanList() {
   const { VIEW } = BUTTON_ICON;
   const { NEXT, PAGE, PREVIOUS } = PAGINATION;
   const { HOME, SCAN } = ROUTE;
+  const { ID } = TEST;
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [pagination, setPagination] = useState<TScanState>(
@@ -169,7 +170,7 @@ function ScanList() {
     // Scan List Start
     <section
       className="scan--list flex w-full flex-col items-center py-4"
-      data-testid={TEST.ID.SCAN_LIST}
+      data-testid={ID.SCAN_LIST}
     >
       <Breadcrumb />
       <h1 className="scan--list__title text-default mb-8 text-center text-2xl font-bold">
@@ -213,6 +214,7 @@ function ScanList() {
                   >
                     <Link
                       className="data__link text-primary font-bold transition-opacity hover:opacity-75"
+                      data-testid={ID.URL}
                       target="_blank"
                       title="Visit the tested URL"
                       to={url}

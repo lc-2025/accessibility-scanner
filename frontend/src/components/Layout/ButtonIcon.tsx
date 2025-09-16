@@ -3,7 +3,7 @@ import {
   DocumentMagnifyingGlassIcon,
   TrashIcon,
 } from '@heroicons/react/24/outline';
-import { BUTTON_ICON } from '../../utils/constants';
+import { BUTTON_ICON, TEST } from '../../utils/constants';
 import type { TButtonIcon } from '../../types/components/ButtonIcon';
 
 /**
@@ -19,6 +19,7 @@ function ButtonIcon({ callback, label, variant }: TButtonIcon) {
     <Button
       aria-label={label}
       className={`container__button ml-4 cursor-pointer rounded-2xl px-4 py-2 transition-opacity hover:opacity-75 ${variant === DELETE ? 'bg-red-500 text-white' : 'bg-accent'}`}
+      data-testid={TEST.ID.ACTION}
       onClick={callback}
     >
       {variant === DELETE ? (

@@ -6,7 +6,8 @@ import { ROUTE, TEST } from '../../src/utils/constants';
 describe('Navigation E2E Test', () => {
   const { findAllByTestId, location } = cy;
   const { HOME, SCAN } = ROUTE;
-  const { ID } = TEST;
+  const { ID, TOKEN } = TEST;
+  const { EQUAL, EXIST } = TOKEN;
 
   /**
    * @description Navigation assertion helper
@@ -15,8 +16,8 @@ describe('Navigation E2E Test', () => {
    * @param {string} path
    */
   const assertNavigation = (id: string, path: string): void => {
-    findAllByTestId(id).should('exist');
-    location('pathname').should('equal', path);
+    findAllByTestId(id).should(EXIST);
+    location('pathname').should(EQUAL, path);
   };
 
   /**
@@ -35,7 +36,7 @@ describe('Navigation E2E Test', () => {
     }
 
     if (menu) {
-      findAllByTestId(ID.MENU).eq(0).click();
+      clickElement(ID.MENU, true);
       assertNavigation(ID.HOME, HOME.PATH);
     }
   };
@@ -45,7 +46,7 @@ describe('Navigation E2E Test', () => {
    * @author Luca Cattide
    */
   const assertScanList = (): void => {
-    findAllByTestId(ID.MENU).eq(1).click();
+    clickElement(ID.MENU, true, 1);
     assertNavigation(ID.SCAN_LIST, `/${SCAN.PATH}/${SCAN.LIST.PATH}`);
   };
 
@@ -74,6 +75,16 @@ describe('Navigation E2E Test', () => {
   it('Navigates to the Scan page via breadcrumb', () => {
     assertHomeSummary(true);
     assertScanList();
-    findAllByTestId(ID.BREADCRUMB).eq(0).click();
+    clickElement(ID.BREADCRUMB, true);
+  });
+  it('Navigates to a Scan URL', () => {
+    assertHomeSummary(true);
+    assertScanList();
+    clickElement(ID.URL, true);
+  })
+  it('Navigates to a Scan details page', () => {
+    assertHomeSummary(true);
+    assertScanList();
+    clickElement(ID.ACTION, true);
   });
 });

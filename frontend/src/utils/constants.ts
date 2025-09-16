@@ -80,6 +80,7 @@ const STATUS = {
 
 const TEST = {
   ID: {
+    ACTION: 'test-action',
     BREADCRUMB: 'test-breadcrumb',
     CTA: {
       HOME: 'test-cta-home',
@@ -89,6 +90,11 @@ const TEST = {
     MENU: 'test-menu',
     SCAN: 'test-scan',
     SCAN_LIST: 'test-scan-list',
+    URL: 'test-url'
+  },
+  TOKEN: {
+    EQUAL: 'equal',
+    EXIST: 'exist',
   },
 };
 

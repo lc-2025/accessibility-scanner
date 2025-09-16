@@ -1,12 +1,12 @@
 import { defineConfig } from 'cypress';
 import vitePreprocessor from 'cypress-vite';
-import dotenv from 'dotenv';
+import { config } from 'dotenv';
 
-const env = dotenv.config('./.env').parsed
+config();
 
 export default defineConfig({
   e2e: {
-    baseUrl: env.VITE_FRONTEND_URL,
+    baseUrl: process.env.FRONTEND_URL,
     setupNodeEvents(on, config) {
       // implement node event listeners here
       on(
