@@ -79,22 +79,41 @@ const STATUS = {
 };
 
 const TEST = {
+  DATA: {
+    URL: {
+      INVALID: 'http://foo',
+      VALID: 'https://lucati.dev',
+    },
+  },
   ID: {
     ACTION: 'test-action',
+    ACTION_DELETE: 'test-action-delete',
     BREADCRUMB: 'test-breadcrumb',
     CTA: {
       HOME: 'test-cta-home',
       HOME_SUMMARY: 'test-cta-home-summary',
     },
+    ERROR: 'test-error',
     HOME: 'test-home',
+    LANGUAGE: 'test-language',
+    LOCALE: 'test-locale',
     MENU: 'test-menu',
+    MESSAGE: 'test-message',
+    NEXT: 'test-next',
+    INPUT: 'test-input',
+    PREVIOUS: 'test-previous',
     SCAN: 'test-scan',
+    SCAN_DETAILS: 'test-scan-details',
     SCAN_LIST: 'test-scan-list',
-    URL: 'test-url'
+    SCAN_RESULT: 'test-scan-result',
+    SUBMIT: 'test-submit',
+    URL: 'test-url',
   },
+  TIMEOUT: 3000,
   TOKEN: {
     EQUAL: 'equal',
     EXIST: 'exist',
+    INPUT: 'input',
   },
 };
 

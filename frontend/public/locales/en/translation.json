@@ -26,6 +26,7 @@
   "scan": {
     "details": {
       "description": "Description",
+      "csv": "Download as CSV",
       "failureSummary": "Failure Summary",
       "impact": "Impact",
       "nodes": "Nodes",
@@ -37,7 +38,7 @@
       "delete": "Remove URL",
       "input": {
         "url": {
-          "placeholder": "Enter a URL"
+          "placeholder": "Enter an URL"
         }
       },
       "legend": "Test your destinations accessibility",

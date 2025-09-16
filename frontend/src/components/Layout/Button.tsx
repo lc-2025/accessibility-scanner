@@ -5,15 +5,27 @@ import type { TButton } from '../../types/components/Button';
 /**
  * @description Button component
  * @author Luca Cattide
- * @param {TButton} { callback, label, link, title, type, variant }
+ * @param {TButton} { ariaLabel, callback, disabled, label, link, title, type, variant }
  * @returns {*}
  */
-function Button({ callback, label, link, title, type, variant }: TButton) {
+function Button({
+  ariaLabel,
+  callback,
+  disabled,
+  label,
+  link,
+  title,
+  type,
+  variant,
+}: TButton) {
   const { ANCHOR, DEFAULT, LINK } = BUTTON_TYPE;
-  const { HOME, HOME_SUMMARY } = TEST.ID.CTA;
+  const { ID } = TEST;
+  const { CTA, SUBMIT } = ID;
+  const { HOME, HOME_SUMMARY } = CTA;
 
   return variant === ANCHOR ? (
     <a
+      aria-label={ariaLabel}
       className="button text-primary rounded-2xl bg-white px-8 py-4 text-2xl font-bold uppercase transition-opacity select-none hover:opacity-75 sm:text-4xl"
       data-testid={HOME}
       href="#summary"
@@ -24,7 +36,9 @@ function Button({ callback, label, link, title, type, variant }: TButton) {
     </a>
   ) : variant === DEFAULT ? (
     <button
-      className="button bg-primary w-full cursor-pointer rounded-2xl px-8 py-4 text-center font-bold text-white uppercase transition-opacity select-none hover:opacity-75"
+      aria-label={ariaLabel}
+      className={`button bg-primary w-full cursor-pointer rounded-2xl px-8 py-4 text-center font-bold text-white uppercase transition-opacity select-none hover:opacity-75 ${disabled && 'opacity-50'}`}
+      data-testid={SUBMIT}
       onClick={callback}
       type={type as 'button' | 'submit'}
     >
@@ -32,6 +46,7 @@ function Button({ callback, label, link, title, type, variant }: TButton) {
     </button>
   ) : variant === LINK ? (
     <Link
+      aria-label={ariaLabel}
       className="button bg-primary rounded-2xl px-8 py-4 text-center font-bold text-white uppercase transition-opacity select-none hover:opacity-75"
       data-testid={HOME_SUMMARY}
       title={title}

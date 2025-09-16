@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { LANGUAGES } from '../../utils/constants';
+import { LANGUAGES, TEST } from '../../utils/constants';
 
 /**
  * @description Language component
@@ -8,6 +8,7 @@ import { LANGUAGES } from '../../utils/constants';
  * @returns {*}
  */
 function Language() {
+  const { LANGUAGE, LOCALE } = TEST.ID;
   const { t, i18n } = useTranslation();
 
   /**
@@ -25,7 +26,10 @@ function Language() {
     <aside className="language">
       <h6 className="language__title hidden">Language</h6>
       <Menu>
-        <MenuButton className="language__button text-primary border-primary cursor-pointer rounded-2xl border-2 px-4 py-2 transition-opacity select-none hover:opacity-75">
+        <MenuButton
+          className="language__button text-primary border-primary cursor-pointer rounded-2xl border-2 px-4 py-2 transition-opacity select-none hover:opacity-75"
+          data-testid={LANGUAGE}
+        >
           {t('language')}
         </MenuButton>
         <MenuItems
@@ -36,6 +40,7 @@ function Language() {
             <MenuItem key={crypto.randomUUID() + i}>
               <button
                 className={`popover__language hover:bg-primary text-defaul w-full cursor-pointer bg-white px-4 py-4 select-none hover:text-white ${i === 0 && 'border-b border-gray-200'} ${i18n.language.indexOf(language) !== -1 && 'font-bold'}`}
+                data-testid={LOCALE}
                 key={crypto.randomUUID() + i}
                 onClick={() => handleLanguage(language)}
               >

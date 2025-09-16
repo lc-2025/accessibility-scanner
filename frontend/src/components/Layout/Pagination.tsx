@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { PAGINATION } from '../../utils/constants';
+import { PAGINATION, TEST } from '../../utils/constants';
 import type { TPagination } from '../../types/components/Pagination';
 
 /**
@@ -10,6 +10,7 @@ import type { TPagination } from '../../types/components/Pagination';
  */
 function Pagination({ callback, page, pages }: TPagination) {
   const { NEXT, PAGE, PREVIOUS } = PAGINATION;
+  const { ID } = TEST;
   const { t } = useTranslation();
 
   /**
@@ -46,6 +47,7 @@ function Pagination({ callback, page, pages }: TPagination) {
         <a
           aria-label={t('scan.list.pagination.previous')}
           className={`prev__link border-primary text-primary mx-4 grid min-h-12 min-w-12 flex-col place-content-center items-center justify-center rounded-2xl border px-4 py-2 transition-opacity hover:opacity-75 rtl:rotate-180 ${page === 1 && 'pointer-events-none'}`}
+          data-testid={ID.PREVIOUS}
           href="#"
           onClick={(e) => handleNavigation(e, PREVIOUS)}
           rel="noindex,nofollow"
@@ -78,6 +80,7 @@ function Pagination({ callback, page, pages }: TPagination) {
         <a
           aria-label={t('scan.list.pagination.next')}
           className={`next__link border-primary text-primary justify-centermx-4 grid min-h-12 min-w-12 flex-col place-content-center items-center rounded-2xl border px-4 py-2 transition-opacity hover:opacity-75 rtl:rotate-180 ${page === pages && 'pointer-events-none'}`}
+          data-testid={ID.NEXT}
           href="#"
           onClick={(e) => handleNavigation(e, NEXT)}
           rel="noindex,nofollow"

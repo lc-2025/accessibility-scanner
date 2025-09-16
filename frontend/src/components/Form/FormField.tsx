@@ -2,7 +2,13 @@ import { Field, Input, Label } from '@headlessui/react';
 import { useTranslation } from 'react-i18next';
 import { useFormContext } from 'react-hook-form';
 import ButtonIcon from '../Layout/ButtonIcon';
-import { BUTTON_ICON, ERROR, FORM_ACTION, REGEX } from '../../utils/constants';
+import {
+  BUTTON_ICON,
+  ERROR,
+  FORM_ACTION,
+  REGEX,
+  TEST,
+} from '../../utils/constants';
 import type { TFormField } from '../../types/components/Form';
 
 /**
@@ -16,7 +22,7 @@ function FormField({ callback, index, urls }: TFormField) {
   const { REMOVE } = FORM_ACTION;
   const { t } = useTranslation();
   const {
-    formState: { errors },
+    formState: { isSubmitting, errors },
     register,
   } = useFormContext();
 
@@ -46,7 +52,10 @@ function FormField({ callback, index, urls }: TFormField) {
       >
         URL {urls > 1 ? `#${setFieldName(true)}` : ''}
       </Label>
-      <div className="field__container mt-4 flex items-center">
+      <div
+        className="field__container mt-4 flex items-center"
+        data-testid={TEST.ID.INPUT}
+      >
         <Input
           aria-describedby={
             errors[setFieldName() as keyof typeof errors]
@@ -61,6 +70,7 @@ function FormField({ callback, index, urls }: TFormField) {
           id={setFieldName()}
           placeholder={t('scan.form.input.url.placeholder')}
           {...register(setFieldName(), {
+            disabled: isSubmitting,
             pattern: {
               value: REGEX.URL,
               message: VALIDATION,
@@ -81,7 +91,8 @@ function FormField({ callback, index, urls }: TFormField) {
       {errors[setFieldName() as keyof typeof errors] && (
         <p
           aria-live="assertive"
-          className={`field__error field__error--${setFieldName()} text-red-500 basis-full pt-4`}
+          className={`field__error field__error--${setFieldName()} basis-full pt-4 text-red-500`}
+          data-testid={TEST.ID.ERROR}
         >
           {`${errors[setFieldName() as keyof typeof errors]!.message}`}
         </p>

@@ -1,45 +1,10 @@
-/// <reference types="@testing-library/cypress" />
-import { clickElement, getPath } from '../../src/utils/testingE2e';
+import { assertHomeSummary, assertNavigation, clickElement, getPath } from '../../src/utils/testingE2e';
 import { ROUTE, TEST } from '../../src/utils/constants';
 
 // Navigation End-to-End Test
 describe('Navigation E2E Test', () => {
-  const { findAllByTestId, location } = cy;
   const { HOME, SCAN } = ROUTE;
-  const { ID, TOKEN } = TEST;
-  const { EQUAL, EXIST } = TOKEN;
-
-  /**
-   * @description Navigation assertion helper
-   * @author Luca Cattide
-   * @param {string} id
-   * @param {string} path
-   */
-  const assertNavigation = (id: string, path: string): void => {
-    findAllByTestId(id).should(EXIST);
-    location('pathname').should(EQUAL, path);
-  };
-
-  /**
-   * @description Home summary navigation assertion helper
-   * @author Luca Cattide
-   * @param {boolean} [cta]
-   * @param {boolean} [menu]
-   */
-  const assertHomeSummary = (cta?: boolean, menu?: boolean): void => {
-    assertNavigation(ID.HOME, HOME.PATH);
-    clickElement(ID.CTA.HOME);
-
-    if (cta) {
-      clickElement(ID.CTA.HOME_SUMMARY);
-      assertNavigation(ID.SCAN, `/${SCAN.PATH}`);
-    }
-
-    if (menu) {
-      clickElement(ID.MENU, true);
-      assertNavigation(ID.HOME, HOME.PATH);
-    }
-  };
+  const { ID } = TEST;
 
   /**
    * @description Scan list navigation assertion helper

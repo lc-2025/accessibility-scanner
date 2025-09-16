@@ -150,12 +150,12 @@ function ScanList() {
        * Calculation constraints
        * - Next page: lower than the range set until the total records
        * - Page X: Traverse backward or forward based on the range set correspondent to the page
-       * - Previous page: Greater than the range set until the first record
+       * - Previous page: Lower or equal than the range set until the first record
        */
       [NEXT]: skip < data!.count + 10 ? skip + 10 : skip,
       [PAGE]:
         range > skip + 10 && range + 10 < data!.count ? range + 10 : range - 10,
-      [PREVIOUS]: skip <= data!.count - 10 ? skip - 10 : skip,
+      [PREVIOUS]: skip - 10 <= data!.count - 10 ? skip - 10 : skip,
     };
 
     setPagination((state) => ({
@@ -245,7 +245,10 @@ function ScanList() {
                             className="data_popover inline-block"
                             key={crypto.randomUUID() + i}
                           >
-                            <PopoverButton className="popover__button container__button ml-4 cursor-pointer rounded-2xl bg-red-500 px-4 py-2 text-white transition-opacity hover:opacity-75">
+                            <PopoverButton
+                              className="popover__button container__button ml-4 cursor-pointer rounded-2xl bg-red-500 px-4 py-2 text-white transition-opacity hover:opacity-75"
+                              data-testid={ID.ACTION}
+                            >
                               <TrashIcon className="button__icon size-6" />
                             </PopoverButton>
                             <PopoverPanel
@@ -255,6 +258,7 @@ function ScanList() {
                               {t('scan.list.action.confirm')}
                               <CheckIcon
                                 className="panel__icon ml-4 size-6 cursor-pointer text-green-500"
+                                data-testid={ID.ACTION_DELETE}
                                 onClick={() => handleAction(value, id)}
                               />
                             </PopoverPanel>
@@ -268,11 +272,13 @@ function ScanList() {
             </tbody>
             {/* Body End */}
           </table>
-          <Pagination
-            callback={handlePagination}
-            page={handlePage(data.count)}
-            pages={handlePages(data.count)}
-          />
+          {data && data.count > 10 && (
+            <Pagination
+              callback={handlePagination}
+              page={handlePage(data.count)}
+              pages={handlePages(data.count)}
+            />
+          )}
           {/* Results End */}
         </div>
       ) : (

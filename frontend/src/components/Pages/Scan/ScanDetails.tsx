@@ -11,7 +11,7 @@ import Error from '../../Layout/Error';
 import EmptyState from '../../Layout/EmptyState';
 import { enableCache } from '../../../utils/utilities';
 import { getScan } from '../../../utils/api';
-import { API, BUTTON_TYPE } from '../../../utils/constants';
+import { API, BUTTON_TYPE, TEST } from '../../../utils/constants';
 import type {
   TScan,
   TScanViolation,
@@ -97,7 +97,7 @@ function ScanDetails() {
     <Loading />
   ) : data ? (
     // Scan Details Start
-    <section className="scan--details flex w-full flex-1 flex-col items-center py-4">
+    <section className="scan--details flex w-full flex-1 flex-col items-center py-4" data-testid={TEST.ID.SCAN_DETAILS}>
       <Breadcrumb />
       <hgroup className="scan--details__titles">
         <h1 className="titles__title text-default mb-8 text-center text-2xl font-bold">
@@ -113,7 +113,7 @@ function ScanDetails() {
           <h6 className="download__title hidden">Download</h6>
           <Button
             callback={handleDownload}
-            label="Download as CSV"
+            label={t('scan.details.csv')}
             variant={BUTTON_TYPE.DEFAULT}
           />
         </aside>
