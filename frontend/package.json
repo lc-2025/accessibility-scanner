@@ -22,8 +22,8 @@
   "scripts": {
     "lint": "eslint . prettier --write . && prettier --check .",
     "dev": "vite",
-    "test": "vitest run",
-    "test:ci": "vitest",
+    "test": "vitest",
+    "test:ci": "vitest run",
     "cypress:open": "cypress open",
     "build": "tsc -b && vite build",
     "preview": "vite preview"
@@ -57,9 +57,11 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/mocha": "^10.0.10",
+    "@types/node": "^24.5.0",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react-swc": "^4.0.0",
+    "@vitest/coverage-v8": "^3.2.4",
     "cypress": "^15.2.0",
     "cypress-vite": "^1.8.0",
     "daisyui": "^5.1.10",

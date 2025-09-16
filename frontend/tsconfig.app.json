@@ -24,7 +24,12 @@
     "noUncheckedSideEffectImports": true,
 
     /* Testing */
-    "types": ["cypress", "@testing-library/cypress", "@testing-library/jest-dom"]
+    "types": [
+      "cypress",
+      "@testing-library/cypress",
+      "@testing-library/jest-dom",
+      "vitest/globals"
+    ]
   },
   "include": ["./cypress/**/*", "src"]
 }

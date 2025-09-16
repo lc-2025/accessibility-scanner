@@ -13,6 +13,7 @@ export default defineConfig({
       include: ['./src/**/*.ts'],
     },
     environment: 'happy-dom',
+    globals: true,
     setupFiles: './vite.setup.ts',
   },
 });
