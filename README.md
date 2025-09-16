@@ -2,6 +2,8 @@
 
 AccessiWay Coding Challenge
 
+![Accessibility Scanner](../docs/preview.gif "Accessibility Scanner Preview")
+
 ## About
 
 Fullstack Take-Home Challenge – Accessibility Scanner

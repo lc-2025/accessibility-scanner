@@ -2,6 +2,8 @@
 
 AccessiWay Coding Challenge Frontend application
 
+![Accessibility Scanner](../docs/preview.gif "Accessibility Scanner Preview")
+
 ## About
 
 Fullstack Take-Home Challenge – Accessibility Scanner - Frontend
@@ -54,7 +56,7 @@ Build a fullstack web application that allows users to:
 
 - Show axe-core results (at least id, impact, description, nodes)
 - Group by severity (e.g., "Severe", "Moderate")
-Clean and readable UI
+- Clean and readable UI
 
 ### Extra Bonus (Optional)
 
@@ -79,6 +81,7 @@ Clean and readable UI
 - Scan results pagination
 - Responsiveness
 - Security
+  - Data validation
   - Request timing-out
 - Optimization
   - Data fetching caching
@@ -215,7 +218,7 @@ Here's some details about them:
 - Essential navigational interfaces to improve the application usability with a main menu and breadcrumb
 - Linking to scanned resources for a live monitoring
 - Scanning results data management via pagination to improve performance and readability
-- REST timing-out for security concerns
+- User data input validation and REST timing-out for security concerns
 - Caching data fetched to improve overall
 
 ### Estimated Delivery Time
