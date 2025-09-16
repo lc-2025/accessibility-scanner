@@ -1,3 +1,7 @@
+/*
+  CDN fonts here just for demo purpose. Good for bundle size optimization; since there's no worries about offline handling.
+  In case of PWAs features introduction (i.e. offline, assets caching, etc.), I personally prefer embedded fonts
+*/
 @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 @import 'tailwindcss';
@@ -19,10 +23,10 @@ body {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: white;
+  background: #fff;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: var(--color-primary);
+  background: #002070;
 }
