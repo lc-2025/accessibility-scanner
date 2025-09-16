@@ -1,10 +1,12 @@
 # Accessibility Scanner - Backend
 
-AccessiWay Coding Challenge
+AccessiWay Coding Challenge Backend application
 
 ## About
 
-Fullstack Take-Home Challenge – Accessibility Scanner
+Fullstack Take-Home Challenge – Accessibility Scanner - Backend
+
+A server application that provides **REST API** to access and manage the scans data stored on a **NoSQL database** cluster.
 
 ### Objective
 
@@ -52,6 +54,28 @@ Each scan should include:
 - createdAt, updatedAt
 - List of violations
 
+### Testing
+
+- Backend: test API or scanning logic
+
+## Features
+
+- REST API based on specifications
+
+## Extra (in addition to requirements)
+
+- DB Indexing & Transactions
+- SSL management
+- Error logging
+- Security
+  - CORS
+  - XSS
+  - Data validation & sanitization
+- Optimization
+  - Requests compression
+  - Rate limiting
+  - Response data pagination
+
 ## Stack
 
 ### Languages
@@ -68,6 +92,7 @@ Each scan should include:
 - Puppeteer
 - Axe
 - Joi
+- Supertest
 
 ### Frameworks
 
@@ -84,7 +109,7 @@ Each scan should include:
 - Babel
 - TypeScript
 
-### Testing
+### Test
 
 - Jest
 - Supertest
@@ -137,7 +162,7 @@ npm run start
 
 ### Tests
 
-#### Unit/Integration
+#### Unit
 
 On terminal, from project root:
 
@@ -178,7 +203,9 @@ About 1.5 day(s) | 12 working hours (including extra implementations)
 - More snippets abstraction into common libraries (i.e. utilities/api) - (DRY)
 - Schema 3rd-party typing definitions (i.e. `violations`)
 - Responses transormation interceptor/middleware (getting rid of extra fields for security concerns)
+- Logging (i.e. `EventEmitter`)
 - API documentation (Swagger)
 - API versioning and GraphQL implementation for future scalability
+- API JWT-based authorization
 - Additional (corner-cases) tests
 - Continuous-Integration/Delivery & DevOps pipelines (i.e. GitHub Actions, Docker)
