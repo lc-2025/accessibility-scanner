@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button as FormButton, Fieldset, Legend } from '@headlessui/react';
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Button from '../Layout/Button';
@@ -28,10 +28,17 @@ function Form({ callback }: { callback: Dispatch<SetStateAction<boolean>> }) {
   const { ADD } = FORM_ACTION;
   const { ACTION, MESSAGE } = TEST.ID;
   const { t } = useTranslation();
-  const [urls, setUrls] = useState<number>(DEFAULT_STATE.FORM.URLS);
   const [message, setMessage] = useState<string>(DEFAULT_STATE.FORM.MESSAGE);
-  const methods = useForm<TFormFieldset>();
-  const { formState, handleSubmit, reset } = methods;
+  const methods = useForm<TFormFieldset>({
+    defaultValues: {
+      urls: [{ url: '' }],
+    }
+  });
+  const { control, formState, handleSubmit, reset } = methods;
+  const { append, fields, remove } = useFieldArray({
+    control,
+    name: 'urls',
+  });
   const { mutate, error } = useMutation({
     mutationFn: postScan,
   });
@@ -53,18 +60,21 @@ function Form({ callback }: { callback: Dispatch<SetStateAction<boolean>> }) {
     values,
   ): Promise<void> => {
     setMessage(t('scan.form.loading'));
-
+    console.log(values, fields);
     return await new Promise((resolve, reject) => {
-      mutate(Object.values(values), {
-        onError: (error) => {
-          setMessage(error.message);
-          reject();
+      mutate(
+        values.urls.map(({ url }) => url),
+        {
+          onError: (error) => {
+            setMessage(error.message);
+            reject();
+          },
+          onSuccess: () => {
+            callback(true);
+            resolve();
+          },
         },
-        onSuccess: () => {
-          callback(true);
-          resolve();
-        },
-      });
+      );
     });
   };
 
@@ -73,12 +83,10 @@ function Form({ callback }: { callback: Dispatch<SetStateAction<boolean>> }) {
    * Manages the number of URLs
    * @author Luca Cattide
    * @param {string} action
+   * @param {number} [index]
    */
-  const handleUrls = (action: string): void => {
-    setUrls((state) =>
-      // Ensure to leave at least one field
-      action === ADD ? state + 1 : state > 1 ? state - 1 : state,
-    );
+  const handleUrls = (action: string, index?: number): void => {
+    action === ADD ? append({ url: '' }) : remove(index);
   };
 
   return (
@@ -94,12 +102,12 @@ function Form({ callback }: { callback: Dispatch<SetStateAction<boolean>> }) {
             <Legend className="fields__legend text-default mb-4 text-center select-none">
               {t('scan.form.legend')}
             </Legend>
-            {Array.from(Array(urls), (_, i) => (
+            {fields.map((field, i) => (
               <FormField
                 callback={handleUrls}
-                key={crypto.randomUUID() + i}
                 index={i}
-                urls={urls}
+                key={crypto.randomUUID() + field.id}
+                urls={fields.length}
               />
             ))}
             <FormButton
