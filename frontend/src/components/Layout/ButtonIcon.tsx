@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Button } from '@headlessui/react';
 import {
   DocumentMagnifyingGlassIcon,
@@ -12,7 +13,11 @@ import type { TButtonIcon } from '../../types/components/ButtonIcon';
  * @param {TButtonIcon} { callback, label, variant }
  * @returns {*}
  */
-function ButtonIcon({ callback, label, variant }: TButtonIcon) {
+const ButtonIcon = memo(function ButtonIcon({
+  callback,
+  label,
+  variant,
+}: TButtonIcon) {
   const { DELETE } = BUTTON_ICON;
 
   return (
@@ -29,6 +34,6 @@ function ButtonIcon({ callback, label, variant }: TButtonIcon) {
       )}
     </Button>
   );
-}
+});
 
 export default ButtonIcon;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import {
@@ -143,26 +143,31 @@ function ScanList() {
    * @param {string} action
    * @param {number} [page]
    */
-  const handlePagination = (action: string, page?: number): void => {
-    const range = page ? page * 10 : 0;
-    const change = {
-      /**
-       * Calculation constraints
-       * - Next page: lower than the range set until the total records
-       * - Page X: Traverse backward or forward based on the range set correspondent to the page
-       * - Previous page: Lower or equal than the range set until the first record
-       */
-      [NEXT]: skip < data!.count + 10 ? skip + 10 : skip,
-      [PAGE]:
-        range > skip + 10 && range + 10 < data!.count ? range + 10 : range - 10,
-      [PREVIOUS]: skip - 10 <= data!.count - 10 ? skip - 10 : skip,
-    };
+  const handlePagination = useCallback(
+    (action: string, page?: number): void => {
+      const range = page ? page * 10 : 0;
+      const change = {
+        /**
+         * Calculation constraints
+         * - Next page: lower than the range set until the total records
+         * - Page X: Traverse backward or forward based on the range set correspondent to the page
+         * - Previous page: Lower or equal than the range set until the first record
+         */
+        [NEXT]: skip < data!.count + 10 ? skip + 10 : skip,
+        [PAGE]:
+          range > skip + 10 && range + 10 < data!.count
+            ? range + 10
+            : range - 10,
+        [PREVIOUS]: skip - 10 <= data!.count - 10 ? skip - 10 : skip,
+      };
 
-    setPagination((state) => ({
-      ...state,
-      skip: change[action],
-    }));
-  };
+      setPagination((state) => ({
+        ...state,
+        skip: change[action],
+      }));
+    },
+    [data, skip],
+  );
 
   return error ? (
     <Error message={error.message} />
