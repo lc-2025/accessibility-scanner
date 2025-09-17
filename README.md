@@ -2,7 +2,7 @@
 
 AccessiWay Coding Challenge
 
-![Accessibility Scanner](../docs/preview.gif "Accessibility Scanner Preview")
+![Accessibility Scanner](./docs/preview.gif "Accessibility Scanner Preview")
 
 ## About
 
