@@ -233,6 +233,7 @@ About 3.5 days | 30 working hours (including extra implementations)
 - JWT-based authentication
 - REST API security improvement (i.e. vs XSFR)
 - REST API response transformation (getting rid of unnecessary data fields)
+- Content Security Policy definition
 - Logging (i.e. _Axios_ interceptors)
 - Scan results pagination custom setting (i.e. set custom displayed results per page)
 - Scan results pagination truncation (i.e. over 5 pages display a shortcut button)
