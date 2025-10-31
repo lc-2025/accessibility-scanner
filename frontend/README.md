@@ -102,7 +102,7 @@ Build a fullstack web application that allows users to:
 - **Testing**: Vitest, Cypress
 - **Versioning**: GitHub, Husky
 - **Continuous-Integration/Delivery**: GitHub Actions
-- **Deployment**:
+- **Deployment**: Vercel
 
 ## Getting Started
 

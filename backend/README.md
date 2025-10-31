@@ -92,7 +92,7 @@ Each scan should include:
 - **Data Storage**: MongoDB Atlas
 - **Versioning**: GitHub, Husky
 - **Continuous-Integration/Delivery**: GitHub Actions
-- **Deployment**:
+- **Deployment**: Render
 
 ## Getting Started
 
