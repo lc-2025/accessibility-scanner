@@ -19,7 +19,7 @@ const postScan = async (
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
-  if (req.body.urls) {
+  if (req.body && req.body.urls) {
     const { urls } = req.body;
     // Query validation
     const schema = Joi.object({

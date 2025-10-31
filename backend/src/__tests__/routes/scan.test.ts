@@ -124,7 +124,7 @@ describe('Scan API Unit Test - REST', () => {
 
       response = await request(app)
         .put(`${ROUTES.API.BASE_PATHNAME}/${id}`)
-        .expect(204);
+        .expect(200);
     },
     TIMEOUT,
   );
