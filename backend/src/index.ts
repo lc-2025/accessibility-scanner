@@ -50,6 +50,7 @@ app.use(
   ssl,
   error,
 );
+app.set('trust proxy', 1);
 
 /**
  * @description Server starting
