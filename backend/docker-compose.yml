@@ -1,0 +1,25 @@
+# Docker Compose - Configuration (Production)
+services:
+  accessibility-scanner-backend:
+    container_name: accessibility-scanner-backend
+    build:
+      context: .
+      dockerfile: release/Dockerfile
+      labels:
+        com.accessibility-scanner.title: '@accessibility-scanner/backend'
+        com.accessibility-scanner.description: 'Accessibility scanner'
+    ports:
+      - '${PORT}:${PORT}'
+    environment:
+      - NODE_ENV=production
+      - BASE_URL=${BASE_URL}
+      - PORT=${PORT}
+      - DB_HOST=${DB_HOST}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+    labels:
+      com.accessibility-scanner.title: '@accessibility-scanner/backend'
+      com.accessibility-scanner.description: 'Accessibility scanner'
+    env_file:
+      - .env
