@@ -50,6 +50,7 @@ app.use(
   ssl,
   error,
 );
+// Render Proxy
 app.set('trust proxy', 1);
 
 /**
