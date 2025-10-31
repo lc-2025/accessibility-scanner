@@ -2,6 +2,8 @@
 
 AccessiWay Coding Challenge Backend application
 
+[![Accessibility Scanner CI](https://github.com/lc-2025/accessibility-scanner/actions/workflows/ci.yml/badge.svg)](https://github.com/lc-2025/accessibility-scanner/actions/workflows/ci.yml) [![Accessibility Scanner CD](https://github.com/lc-2025/accessibility-scanner/actions/workflows/cd.yml/badge.svg)](https://github.com/lc-2025/accessibility-scanner/actions/workflows/cd.yml)
+
 ## About
 
 Fullstack Take-Home Challenge – Accessibility Scanner - Backend
@@ -148,6 +150,29 @@ npm run test
 ```bash
 npm run test:ci
 ```
+
+### Using Docker
+
+You may use Docker to build the container and run the image required in the deployment step.
+
+On terminal, from project root:
+
+- Build the image and run the container
+
+```bash
+docker-compose up -d --build
+```
+
+- Stop the container
+
+```bash
+docker-compose stop
+```
+
+## Deploy
+
+Accessibility Scanner Backend_ is integrated and delivered to production via _GitHub Actions_ workflows pipeline, where the server is being set up, tested, built and containerized with _Docker_.
+Then the _Docker_ image is hosted on _GitHub Container Registry_ and deployed on _Render_ production environment available at [https://accessibility-scanner-backend-lyqi.onrender.com](https://accessibility-scanner-backend-lyqi.onrender.com)
 
 ## Contributing
 

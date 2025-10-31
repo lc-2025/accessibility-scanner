@@ -4,6 +4,8 @@ AccessiWay Coding Challenge Frontend application
 
 ![Accessibility Scanner](../docs/preview.gif "Accessibility Scanner Preview")
 
+[![Accessibility Scanner CI](https://github.com/lc-2025/accessibility-scanner/actions/workflows/ci.yml/badge.svg)](https://github.com/lc-2025/accessibility-scanner/actions/workflows/ci.yml) [![Accessibility Scanner CD](https://github.com/lc-2025/accessibility-scanner/actions/workflows/cd.yml/badge.svg)](https://github.com/lc-2025/accessibility-scanner/actions/workflows/cd.yml)
+
 ## About
 
 Fullstack Take-Home Challenge – Accessibility Scanner - Frontend
