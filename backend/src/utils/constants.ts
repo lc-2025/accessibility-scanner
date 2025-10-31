@@ -52,7 +52,7 @@ const ROUTES = {
     },
   },
 };
-const TEST_ID = '7ece90af-4a2a-4573-aaf0-9ed4e3ea2257'
+const TEST_ID = '7ece90af-4a2a-4573-aaf0-9ed4e3ea2257';
 const TEST = {
   TIMEOUT: 60000,
   URLS: ['https://lucati.dev', 'https://accessibility-scanner-demo.vercel.app'],

@@ -10,7 +10,7 @@ env:
   # Repository
   DEPENDENCIES_PATH: |
     ~/.cache
-    **/node_modules
+    ./node_modules
   DEPENDENCIES_KEY: "**/package-lock.json"
   ARTIFACTS_NAME: accessibility-scanner
 jobs:
@@ -53,12 +53,7 @@ jobs:
           echo DB_PASSWORD=$DB_PASSWORD >> .env
           mv .env backend/
       - name: Installing dependencies
-        run: |
-          cd backend
-          npm i
-          cd ..
-          cd frontend
-          npm i
+        run: npm run setup:ci
       # Cache dependencies for future reuse
       - name: Cache dependencies
         uses: actions/cache/save@v4
@@ -76,7 +71,7 @@ jobs:
           # Exclude dependencies to lighten artifacts (provided via cache)
           path: |
             .
-            !**/node_modules
+            !./node_modules
   test:
     runs-on: ubuntu-latest
     needs: setup
@@ -100,15 +95,14 @@ jobs:
           atlas-public-key: ${{ secrets.ATLAS_PUBLIC_KEY }}
           group-id: ${{ secrets.ATLAS_GROUP_ID }}
       - name: Test applications
-        run: |
-          cd backend
-          npm run test:ci
+        run: npm run test
       - name: Test applications - E2E
         uses: cypress-io/github-action@v6
         with:
-          working-directory: ./frontend
+          working-directory: .
+          project: ./frontend
           build: npm run build
-          start: npm run preview
+          start: npm run start -w frontend
       # Tests report storing for QA/checks
       - name: Archive code coverage results
         uses: actions/upload-artifact@v4
@@ -148,3 +142,4 @@ jobs:
           path: |
             ./backend
             ./frontend
+            ./package*

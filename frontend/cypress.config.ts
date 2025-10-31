@@ -7,7 +7,7 @@ config();
 export default defineConfig({
   e2e: {
     baseUrl: process.env.FRONTEND_URL,
-    setupNodeEvents(on, config) {
+    setupNodeEvents(on) {
       // implement node event listeners here
       on(
         'file:preprocessor',

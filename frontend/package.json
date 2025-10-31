@@ -15,12 +15,9 @@
   ],
   "author": "Luca Cattide",
   "license": "UNLICENSED",
-  "bugs": {
-    "url": "https://github.com/lc-2025/accessibility-scanner/issues"
-  },
   "homepage": "https://github.com/lc-2025/accessibility-scanner/frontend#readme",
   "scripts": {
-    "lint": "eslint . prettier --write . && prettier --check .",
+    "lint": "eslint . && prettier --write . && prettier --check .",
     "dev": "vite",
     "test": "vitest",
     "test:ci": "vitest run",
@@ -70,7 +67,6 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
     "happy-dom": "^18.0.1",
-    "husky": "^9.1.7",
     "prettier": "3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.14",
     "typescript": "~5.8.3",

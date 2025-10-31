@@ -92,7 +92,7 @@ jobs:
       # Repository
       DEPENDENCIES_PATH: |
         ~/.cache
-        **/node_modules
+        ./node_modules
       DEPENDENCIES_KEY: "**/package-lock.json"
     steps:
       - name: Checkout repository

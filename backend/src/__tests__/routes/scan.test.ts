@@ -65,12 +65,12 @@ describe('Scan API Unit Test - REST', () => {
    */
   const initScan = async (): Promise<string> => {
     await runScans();
-      await closeConnection();
-      await getScans();
-      await closeConnection();
+    await closeConnection();
+    await getScans();
+    await closeConnection();
 
-      return response.body.data[0].id;
-  }
+    return response.body.data[0].id;
+  };
 
   /**
    * @description Scan ID assertion helper
