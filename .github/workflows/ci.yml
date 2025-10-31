@@ -55,10 +55,10 @@ jobs:
       - name: Installing dependencies
         run: |
           cd backend
-          npm run i
+          npm i
           cd ..
           cd frontend
-          npm run i
+          npm i
       # Cache dependencies for future reuse
       - name: Cache dependencies
         uses: actions/cache/save@v4
