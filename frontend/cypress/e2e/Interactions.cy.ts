@@ -91,7 +91,7 @@ describe('Interactions E2E Test', () => {
       assertPresence(ID.SCAN_LIST);
     });
   });
-  it('Displays the next scan results page', () => {
+  it.skip('Displays the next scan results page', () => {
     assertForm(VALID);
     wait(TIMEOUT).then(() => {
       assertPresence(ID.SCAN_RESULT);
@@ -99,8 +99,8 @@ describe('Interactions E2E Test', () => {
       assertPresence(ID.SCAN_LIST);
       clickElement(ID.NEXT);
     });
-  }).skip();
-  it('Displays the previous scan results page', () => {
+  });
+  it.skip('Displays the previous scan results page', () => {
     assertForm(VALID);
     wait(TIMEOUT).then(() => {
       assertPresence(ID.SCAN_RESULT);
@@ -109,7 +109,7 @@ describe('Interactions E2E Test', () => {
       clickElement(ID.NEXT);
       clickElement(ID.PREVIOUS);
     });
-  }).skip();
+  });
   it('Displays the scan result details', () => {
     assertForm(VALID);
     wait(TIMEOUT).then(() => {
