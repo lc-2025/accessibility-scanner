@@ -60,7 +60,7 @@ function Form({ callback }: { callback: Dispatch<SetStateAction<boolean>> }) {
     values,
   ): Promise<void> => {
     setMessage(t('scan.form.loading'));
-    console.log(values, fields);
+
     return await new Promise((resolve, reject) => {
       mutate(
         values.urls.map(({ url }) => url),
