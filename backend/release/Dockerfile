@@ -37,6 +37,8 @@ ENV DB_PASSWORD ${DB_PASSWORD}
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=cache,target=/root/.npm \
     npm i --omit=dev
+# Chrome Headless Shell for Puppeteer
+RUN npx @puppeteer/browsers install chrome-headless-shell@stable
 # Production build stage
 FROM deps as build
 # Build Arguments
