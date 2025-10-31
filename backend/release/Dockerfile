@@ -64,12 +64,11 @@ COPY . .
 RUN npm run build
 # Production start stage
 FROM base as final
-USER root
+# Non-root user run
+USER node
 # Download additional development dependencies before building, as some projects require
 # Chrome Headless Shell for Puppeteer
 RUN npx @puppeteer/browsers install chrome-headless-shell@stable
-# Non-root user run
-USER node
 # Copy package
 COPY package.json .
 # Copy production dependencies & build
