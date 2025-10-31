@@ -54,6 +54,8 @@ ENV DB_NAME ${DB_NAME}
 ENV DB_USER ${DB_USER}
 ENV DB_PASSWORD ${DB_PASSWORD}
 # Download additional development dependencies before building, as some projects require
+# Chrome Headless Shell for Puppeteer
+RUN npx @puppeteer/browsers install chrome-headless-shell@stable
 # "devDependencies" to be installed to build. If you don't need this, remove this step.
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=cache,target=/root/.npm \
