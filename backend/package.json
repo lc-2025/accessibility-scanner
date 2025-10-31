@@ -1,6 +1,7 @@
 {
   "name": "accessibility-scanner-backend",
   "version": "1.0.0",
+  "private": true,
   "description": "Accessibility scanner - Backend",
   "main": "dist/index.js",
   "scripts": {

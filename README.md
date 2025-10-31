@@ -6,7 +6,10 @@ AccessiWay Coding Challenge
 
 ## About
 
-Fullstack Take-Home Challenge – Accessibility Scanner
+Fullstack Take-Home Challenge – Accessibility Scanner.
+
+All trademarks, logos, images, and references belong to their legitimate owners.
+The author holds no ownership or exclusive rights to use this application, except for demonstration purposes.
 
 ### Objective
 

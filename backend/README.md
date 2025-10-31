@@ -8,6 +8,9 @@ Fullstack Take-Home Challenge – Accessibility Scanner - Backend
 
 A server application that provides **REST API** to access and manage the scans data stored on a **NoSQL database** cluster.
 
+All trademarks, logos, images, and references belong to their legitimate owners.
+The author holds no ownership or exclusive rights to use this application, except for demonstration purposes.
+
 ### Objective
 
 Build a fullstack web application that allows users to:
@@ -78,50 +81,18 @@ Each scan should include:
 
 ## Stack
 
-### Languages
-
-- JavaScript
-- TypeScript
-
-### Environments
-
-- NodeJS
-
-### Libraries
-
-- Puppeteer
-- Axe
-- Joi
-- Supertest
-
-### Frameworks
-
-- Express
-- Jest
-
-### Linters/Plugins
-
-- ESLint
-- Prettier
-
-### Compilers
-
-- Babel
-- TypeScript
-
-### Test
-
-- Jest
-- Supertest
-
-### Versioning
-
-- Git
-- Husky
-
-### Data storage
-
-- MongoDB Atlas
+- **Languages**: JavaScript, Typescript
+- **Environments**: Node.js
+- **Libraries**: Puppeteer, Axe, Joi, Supertest
+- **Frameworks**: Express, Jest
+- **Pre/Post-Processors**: PostCSS
+- **Linters/Plugins**: ESLint, Prettier
+- **Compilers**: Babel, TypeScript
+- **Testing**: Jest, Supertest
+- **Data Storage**: MongoDB Atlas
+- **Versioning**: GitHub, Husky
+- **Continuous-Integration/Delivery**: GitHub Actions
+- **Deployment**:
 
 ## Getting Started
 

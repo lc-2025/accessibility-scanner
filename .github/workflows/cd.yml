@@ -1,0 +1,133 @@
+name: Accessibility Scanner CD
+run-name: Accessibility Scanner Continuous-Delivery
+on:
+  # Pipeline dependency
+  workflow_run:
+    workflows: [Accessibility Scanner CI]
+    types: [completed]
+    branches: [main]
+env:
+  # GitHub Packages
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  # Vercel
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+jobs:
+  build-push:
+    runs-on: ubuntu-latest
+    # Pipeline Check
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    env:
+      BASE_URL: ${{ vars.BASE_URL_BACKEND }}
+      PORT: ${{ vars.PORT }}
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Log in to the Container registry
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      - name: Build and push Docker image
+        id: push
+        uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+        with:
+          context: ./backend
+          file: ./backend/release/Dockerfile
+          build-args: |
+            "BASE_URL=$BASE_URL"
+            "PORT=$PORT"
+            "DB_HOST=$DB_HOST"
+            "DB_NAME=$DB_NAME"
+            "DB_USER=$DB_USER"
+            "DB_PASSWORD=$DB_PASSWORD"
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=registry,ref=lc-2025/accessibility-scanner:main
+          cache-to: type=inline
+      # Created files attestation storing as proof
+      - name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
+  deploy-backend:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    needs: build-push
+    steps:
+      - name: Deploy Backend
+        env:
+          deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          curl "$deploy_url"
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+      id-token: write
+    needs: deploy-backend
+    env:
+      # Repository
+      DEPENDENCIES_PATH: |
+        ~/.cache
+        **/node_modules
+      DEPENDENCIES_KEY: "**/package-lock.json"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Getting dependencies
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ env.DEPENDENCIES_PATH }}
+          key: modules-${{ hashFiles(env.DEPENDENCIES_KEY) }}
+      - name: Getting production dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-vite-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+          restore-keys: |
+            ${{ runner.os }}-vite-${{ hashFiles('**/package-lock.json') }}-
+      - name: Getting production artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: accessibility-scanner-production
+          github-token: ${{ secrets.GH_TOKEN }}
+          run-id: ${{ github.event.workflow_run.id }}
+      - name: Install Vercel CLI
+        run: npm i --g vercel@latest
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+  failure:
+    runs-on: ubuntu-latest
+    permissions: {}
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - run: echo 'The triggering workflow failed'

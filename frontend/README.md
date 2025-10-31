@@ -10,6 +10,9 @@ Fullstack Take-Home Challenge – Accessibility Scanner - Frontend
 
 A front-end application based on _Vite_ consisting of an online service to scan remote resources and validate their accessibility support, providing a detailed report consultable via website or in CSV format. All the collected data is stored on a related database, accessible through a dedicated back-end application.
 
+All trademarks, logos, images, and references belong to their legitimate owners.
+The author holds no ownership or exclusive rights to use this application, except for demonstration purposes.
+
 ### Objective
 
 Build a fullstack web application that allows users to:
@@ -89,57 +92,17 @@ Build a fullstack web application that allows users to:
 
 ## Stack
 
-### Languages
-
-- HTML
-- CSS
-- JavaScript
-- TypeScript
-
-### Environments
-
-- DOM
-
-### Libraries
-
-- Headless UI
-- Hero Patterns
-- Hero Icons
-- React Router
-- React i18n
-- React Hook Form
-- React Query
-
-### Frameworks
-
-- React
-- Vite
-- Tailwind CSS
-- Vitest
-- Cypress
-
-### Pre/Post-Processors
-
-- PostCSS
-
-### Linters/Plugins
-
-- ESLint
-- Prettier
-
-### Compilers
-
-- TypeScript
-
-### Testing
-
-- Vitest
-- Cypress
-
-### Versioning
-
-- Git
-- Husky
+- **Languages**: HTML, CSS, JavaScript, Typescript
+- **Environments**: DOM
+- **Libraries**: Headless UI, Hero Patterns, Hero Icons, React Router, React i18n, React Hook Form, React Query
+- **Frameworks**: React, Vite, TailwindCSS, Vitest, Cypress
+- **Pre/Post-Processors**: PostCSS
+- **Linters/Plugins**: ESLint, Prettier
+- **Compilers**: TypeScript
+- **Testing**: Vitest, Cypress
+- **Versioning**: GitHub, Husky
+- **Continuous-Integration/Delivery**: GitHub Actions
+- **Deployment**:
 
 ## Getting Started
 
