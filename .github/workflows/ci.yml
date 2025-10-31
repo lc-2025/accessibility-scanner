@@ -108,7 +108,7 @@ jobs:
         with:
           working-directory: ./frontend
           build: npm run build
-          start: npm run start
+          start: npm run preview
       # Tests report storing for QA/checks
       - name: Archive code coverage results
         uses: actions/upload-artifact@v4
