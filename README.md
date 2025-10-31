@@ -4,6 +4,8 @@ AccessiWay Coding Challenge
 
 ![Accessibility Scanner](./docs/preview.gif "Accessibility Scanner Preview")
 
+[![Accessibility Scanner CI](https://github.com/lc-2025/accessibility-scanner/actions/workflows/ci.yml/badge.svg)](https://github.com/lc-2025/accessibility-scanner/actions/workflows/ci.yml) [![Accessibility Scanner CD](https://github.com/lc-2025/accessibility-scanner/actions/workflows/cd.yml/badge.svg)](https://github.com/lc-2025/accessibility-scanner/actions/workflows/cd.yml)
+
 ## About
 
 Fullstack Take-Home Challenge – Accessibility Scanner.
@@ -82,3 +84,36 @@ For any contribution, maintanance and/or trial needs, please refer to these spec
 
 - [Frontend](./frontend/README.md)
 - [Backend](./backend/README.md)
+
+## Repository
+
+The project reflects a monolithic setting - monorepo - using _NPM Workspaces_ to organize both frontend than backend sides.
+Workspaces may be globally managed accordingly to the following specifications.
+
+## Setting Up
+
+On terminal, from project root:
+
+- To install dependencies for all the workspaces:
+
+```bash
+npm run setup
+```
+
+- To lint the sources for the `Frontend` workspace:
+
+```bash
+npm run lint
+```
+
+- To build the production version of all the workspaces:
+
+```bash
+npm run build
+```
+
+- To run the tests in `testing` mode (staging or content-integration/delivery environments) on all the workspaces:
+
+```bash
+npm run test
+```
