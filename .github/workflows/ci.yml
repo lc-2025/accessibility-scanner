@@ -102,7 +102,7 @@ jobs:
           working-directory: .
           project: ./frontend
           build: npm run build
-          start: npm run start -w frontend
+          start: npm run preview -w frontend
       # Tests report storing for QA/checks
       - name: Archive code coverage results
         uses: actions/upload-artifact@v4
