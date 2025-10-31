@@ -27,7 +27,7 @@ function Menu() {
       {[HOME, SCAN.LIST].map(({ PATH }, i) => (
         <NavLink
           className={({ isActive }) =>
-            `menu__link hover:text-primary py-4 transition-colors hover:underline sm:mr-4 sm:ml-4 sm:pr-4 sm:pl-4 ${isActive && 'text-primary pointer-events-none'}`
+            `menu__link hover:text-primary py-4 transition-colors hover:underline mr-4 ml-4 sm:pr-4 sm:pl-4 ${isActive && 'text-primary pointer-events-none'}`
           }
           data-testid={TEST.ID.MENU}
           key={crypto.randomUUID() + i}
