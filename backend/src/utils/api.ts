@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import Joi from 'joi';
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
+import { executablePath } from 'puppeteer';
 import { loadPage } from '@axe-core/puppeteer';
 import { SCAN } from './constants';
 import TQueryFilter from '../types/api/Query';
@@ -79,7 +80,11 @@ const testUrls = async (urls: Array<string>): Promise<TScanResults[]> =>
         };
 
         // Chrome shell is less stable but more efficient in performance
-        const browser = await puppeteer.launch({ headless: 'shell' });
+        const browser = await puppeteer.launch({
+          headless: 'shell',
+          executablePath: executablePath(),
+          args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu'],
+        });
         const axeBuilder = await loadPage(browser, url);
         const results = await axeBuilder.analyze();
 

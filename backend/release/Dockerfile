@@ -71,6 +71,8 @@ USER node
 RUN mkdir -p /home/node/.cache/puppeteer && \
     npx @puppeteer/browsers install chrome@stable \
     --path /home/node/.cache/puppeteer
+# TODO: Remove
+RUN echo "Chrome path:" && npx @puppeteer/browsers resolve chrome@stable --path /home/node/.cache/puppeteer
 # Copy package
 COPY package.json .
 # Copy production dependencies & build
