@@ -7,7 +7,7 @@
 # See https://www.rockyourcode.com/dockerize-a-react-app/
 # Use node image for base image for all stages
 # Setting platform as Render requirement
-FROM --platform=linux/amd64 node:18-buster-slim as base
+FROM --platform=linux/amd64 node:20-buster-slim as base
 # Metadata
 LABEL org.opencontainers.image.source=https://github.com/lc-2025/accessibility-scanner
 LABEL org.opencontainers.image.description="Accessibility Scanner"
@@ -68,7 +68,10 @@ FROM base as final
 USER node
 # Download additional development dependencies before building, as some projects require
 # Chrome Headless Shell for Puppeteer
-RUN npx @puppeteer/browsers install chrome-headless-shell@stable
+RUN mkdir -p /home/node/.cache/puppeteer && \
+    npx @puppeteer/browsers install chrome@stable \
+    --path /home/node/.cache/puppeteer
+RUN ls -la /home/node/.cache/puppeteer/chrome/ || echo "Chrome non trovato!"
 # Copy package
 COPY package.json .
 # Copy production dependencies & build
