@@ -206,4 +206,3 @@ About 3.5 days | 30 working hours (including extra implementations)
 - Scan result details filtering by impact level
 - Progressive Web Apps features (i.e. offline mode, assets caching)
 - Additional (corner-cases) tests
-- Continuous-Integration/Delivery & DevOps pipelines (i.e. GitHub Actions, Docker)

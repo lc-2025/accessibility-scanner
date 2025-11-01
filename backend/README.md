@@ -204,4 +204,3 @@ About 1.5 day(s) | 12 working hours (including extra implementations)
 - API versioning and GraphQL implementation for future scalability
 - API JWT-based authorization
 - Additional (corner-cases) tests
-- Continuous-Integration/Delivery & DevOps pipelines (i.e. GitHub Actions, Docker)
