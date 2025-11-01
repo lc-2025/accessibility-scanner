@@ -71,7 +71,6 @@ USER node
 RUN mkdir -p /home/node/.cache/puppeteer && \
     npx @puppeteer/browsers install chrome@stable \
     --path /home/node/.cache/puppeteer
-RUN ls -la /home/node/.cache/puppeteer/chrome/ || echo "Chrome non trovato!"
 # Copy package
 COPY package.json .
 # Copy production dependencies & build
