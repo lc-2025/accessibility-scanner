@@ -7,7 +7,7 @@
 # See https://www.rockyourcode.com/dockerize-a-react-app/
 # Use node image for base image for all stages
 # Setting platform as Render requirement
-FROM --platform=linux/amd64 node:20-buster-slim as base
+FROM --platform=linux/amd64 node:20-bookworm-slim as base
 # Metadata
 LABEL org.opencontainers.image.source=https://github.com/lc-2025/accessibility-scanner
 LABEL org.opencontainers.image.description="Accessibility Scanner"
@@ -64,8 +64,9 @@ COPY . .
 RUN npm run build
 # Production start stage
 FROM base as final
-# Chrome required dependencies
+# Download additional development dependencies before building, as some projects require
 USER root
+# Chrome dependencies
 RUN apt-get update && apt-get install -y \
     ca-certificates \
     fonts-liberation \
@@ -80,14 +81,12 @@ RUN apt-get update && apt-get install -y \
     libexpat1 \
     libfontconfig1 \
     libgbm1 \
-    libgcc1 \
     libglib2.0-0 \
     libgtk-3-0 \
     libnspr4 \
     libnss3 \
     libpango-1.0-0 \
     libpangocairo-1.0-0 \
-    libstdc++6 \
     libx11-6 \
     libx11-xcb1 \
     libxcb1 \
@@ -100,13 +99,11 @@ RUN apt-get update && apt-get install -y \
     libxrandr2 \
     libxrender1 \
     libxtst6 \
-    lsb-release \
     wget \
     xdg-utils \
     && rm -rf /var/lib/apt/lists/*
 # Non-root user run
 USER node
-# Download additional development dependencies before building, as some projects require
 # Chrome Headless Shell for Puppeteer
 RUN mkdir -p /home/node/.cache/puppeteer && \
     npx @puppeteer/browsers install chrome@stable \
