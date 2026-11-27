@@ -2,10 +2,10 @@
 
 Automated web accessibility auditing platform built with **React 19**, **TypeScript**, **Node.js**, **Puppeteer**, and **axe-core** in an NPM Workspaces monorepo.
 
-[![Accessibility Scanner CI](https://github.com)](https://github.com)
-[![Accessibility Scanner CD](https://github.com)](https://github.com)
+[![Accessibility Scanner CI](https://github.com/lc-2025/accessibility-scanner/actions/workflows/ci.yml/badge.svg)](https://github.com/lc-2025/accessibility-scanner/actions/workflows/ci.yml)
+[![Accessibility Scanner CD](https://github.com/lc-2025/accessibility-scanner/actions/workflows/cd.yml/badge.svg)](https://github.com/lc-2025/accessibility-scanner/actions/workflows/cd.yml)
 
-**Live Demo:** [accessibility-scanner.vercel.app](https://vercel.app)
+**Live Demo:** [accessibility-scanner-demo.vercel.app](https://accessibility-scanner-demo.vercel.app)
 
 ![Accessibility Scanner Preview](./docs/preview.gif "Accessibility Scanner Preview")
 
