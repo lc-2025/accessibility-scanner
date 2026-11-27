@@ -1,206 +1,102 @@
-# Accessibility Scanner - Backend
+# WCAG Accessibility Scanner — Backend API
 
-AccessiWay Coding Challenge Backend application
+RESTful backend service for the **WCAG Accessibility Scanner** platform. Built with Node.js, Express, TypeScript, and Puppeteer + `axe-core`, it executes headless browser accessibility audits on target web pages, validates payloads, persists scan history in MongoDB, and enforces security hardening.
 
-[![Accessibility Scanner CI](https://github.com/lc-2025/accessibility-scanner/actions/workflows/ci.yml/badge.svg)](https://github.com/lc-2025/accessibility-scanner/actions/workflows/ci.yml) [![Accessibility Scanner CD](https://github.com/lc-2025/accessibility-scanner/actions/workflows/cd.yml/badge.svg)](https://github.com/lc-2025/accessibility-scanner/actions/workflows/cd.yml)
+- **Production Deployment:** [https://onrender.com](https://onrender.com) (Docker image published via GitHub Container Registry)
+- **Root Documentation:** [`../README.md`](../README.md)
 
-## About
+---
 
-Fullstack Take-Home Challenge – Accessibility Scanner - Backend
+## Tech Stack
 
-A server application that provides **REST API** to access and manage the scans data stored on a **NoSQL database** cluster.
+- **Runtime & Framework:** Node.js, Express 4.21, TypeScript 5.9
+- **Accessibility Auditing Engine:** `puppeteer-core` 24.27, `axe-core` 4.10, `@axe-core/puppeteer` 4.10
+- **Database & ODM:** MongoDB Atlas, Mongoose 8.18
+- **Validation & Security:** Joi 18.0, Helmet 8.1, `express-rate-limit` 8.1, `express-mongo-sanitize` 2.2, CORS, Compression
+- **Testing:** Jest 30.1, Supertest 7.1
+- **Containerization & CI/CD:** Docker, GitHub Container Registry (GHCR), Render
 
-All trademarks, logos, images, and references belong to their legitimate owners.
-The author holds no ownership or exclusive rights to use this application, except for demonstration purposes.
+---
 
-### Objective
+## Project Structure
 
-Build a fullstack web application that allows users to:
+```text
+backend/
+└── src/
+    ├── __tests__/        # API integration and unit tests (Jest & Supertest)
+    ├── controllers/      # Request handlers and audit orchestration logic
+    ├── middlewares/      # Validation, rate-limiting, sanitization, error handling
+    ├── models/           # Mongoose schemas and models
+    ├── routes/           # Express API route definitions
+    ├── types/            # Shared TypeScript types and request/response contracts
+    ├── utils/            # Headless browser runner, axe-core helpers, utilities
+    ├── database.ts       # MongoDB connection lifecycle management
+    └── index.ts          # Express server initialization and middleware setup
+```
 
-- Submit one or more URLs to analyze
-- Launch an automated scan for accessibility issues
-- View the status of the scan
-- Explore the results in a clear and user-friendly interface
-
-### Required Technologies
-
-- Node.js + Express
-- Puppeteer
-- Axe-core
-- MongoDB (you can use Atlas or local)
-- TypeScript or modern JavaScript (ES6+)
-- Testing with Jest or similar
-
-### Required Features
-
-Create a REST API with the following routes:
-
-- `POST` /scan
-  - Launch one or more scans (pass an array of URLs)
-- `GET` /scan/:id
-  - Retrieve the status and results of a scan
-- `GET` /scan/list
-  - Return the list of all scans performed
-- `PUT` /scan/:id
-  - (Optional) Update a scan
-- `DELETE` /scan/:id
-  - Delete a scan
-
-### Scan Logic
-
-- Use **Puppeteer** to open the page
-- Run **axe-core** in the page context to collect accessibility violations
-- Store the results in MongoDB (can be async/background)
-
-Each scan should include:
-
-- id
-- status (pending, running, done, error)
-- createdAt, updatedAt
-- List of violations
-
-### Testing
-
-- Backend: test API or scanning logic
-
-## Features
-
-- REST API based on specifications
-
-## Extra (in addition to requirements)
-
-- DB Indexing & Transactions
-- SSL management
-- Error logging
-- Security
-  - CORS
-  - XSS
-  - Data validation & sanitization
-- Optimization
-  - Requests compression
-  - Rate limiting
-  - Response data pagination
-
-## Stack
-
-- **Languages**: JavaScript, Typescript
-- **Environments**: Node.js
-- **Libraries**: Puppeteer, Axe, Joi, Supertest
-- **Frameworks**: Express, Jest
-- **Pre/Post-Processors**: PostCSS
-- **Linters/Plugins**: ESLint, Prettier
-- **Compilers**: Babel, TypeScript
-- **Testing**: Jest, Supertest
-- **Data Storage**: MongoDB Atlas
-- **Versioning**: GitHub, Husky
-- **Continuous-Integration/Delivery**: GitHub Actions
-- **Deployment**: Render
+---
 
 ## Getting Started
 
-For any contribution, maintanance and/or trial needs, please refer to the following specifications.
+### Prerequisites
 
-### Environment
+- **Node.js** (LTS recommended)
+- **MongoDB** instance (local or MongoDB Atlas URI)
+- **Chromium / Chrome executable** available in the environment for `puppeteer-core`
 
-In order to manage `development` or `production` versions, please set the proper `.env | .env.*` root file according to the distribution guidelines contained in the `.env.dist` version.
-The environment configuration contains the core info required by the server in order to start and communicate with the database. Live data resides on a _MongoDB Atlas_ cluster. For any local test, please provide the expected _MongoDB_ one.
+### Environment Variables
 
-### Server
+Create a `.env` file inside the `backend/` directory (refer to `.env.example` if present) and configure your runtime variables (such as server port, MongoDB connection URI, allowed CORS origin, and Chromium executable path).
 
-On terminal, from project root:
+### Installation & Development
 
-- To setup the project
+From the **repository root**:
 
 ```bash
-npm i
+npm install
+npm run dev --workspace=backend
 ```
 
-- To run in `development` mode
+Or directly inside `backend/`:
 
 ```bash
 npm run dev
 ```
 
-- To build the production version
+### Production Build
 
 ```bash
-npm run build
+npm run build --workspace=backend
+npm run start --workspace=backend
 ```
 
-- To run in `production` mode
+---
+
+## Docker
+
+The backend is containerized for reproducible headless Chromium execution and deployed to Render via GHCR:
 
 ```bash
-npm run start
+docker build -t accessibility-scanner-backend ./backend
+docker run --env-file ./backend/.env -p 5000:5000 accessibility-scanner-backend
 ```
 
-### Tests
+---
 
-#### Unit
+## Testing
 
-On terminal, from project root:
-
-- To run the tests in `development` mode
+Run the Jest and Supertest suite:
 
 ```bash
-npm run test
+npm test --workspace=backend
 ```
 
-- To run the tests in `testing` mode (staging or content-integration/delivery environments)
+---
 
-```bash
-npm run test:ci
-```
+## License & Legal Notice
 
-### Using Docker
+**All Rights Reserved (`UNLICENSED`).**
 
-You may use Docker to build the container and run the image required in the deployment step.
+This codebase and its documentation are proprietary and provided strictly for portfolio review and technical evaluation. Unauthorized copying, modification, distribution, or commercial use of this software, via any medium, is strictly prohibited without explicit written permission from the author.
 
-On terminal, from project root:
-
-- Build the image and run the container
-
-```bash
-docker-compose up -d --build
-```
-
-- Stop the container
-
-```bash
-docker-compose stop
-```
-
-## Deploy
-
-Accessibility Scanner Backend_ is integrated and delivered to production via _GitHub Actions_ workflows pipeline, where the server is being set up, tested, built and containerized with _Docker_.
-Then the _Docker_ image is hosted on _GitHub Container Registry_ and deployed on _Render_ production environment available at [https://accessibility-scanner-backend-lyqi.onrender.com](https://accessibility-scanner-backend-lyqi.onrender.com)
-
-## Contributing
-
-Please read more about required best practices on the specific [contributing reference document](./CONTRIBUTING.md)
-
-## General Info
-
-The project contains extra implementations due to the importance relating common performance and security best-practices.
-Here's some details about them:
-
-- Explicit indexing for DB model to reduce query load, improving general performance and reflecting the schema specification
-- CRUD operations supported by query transactions to ensure operational batching and better response
-- Custom SSL middleware to ensure HTTPS communication on `production` (via redirect)
-- Custom error middleware to manage uncovered exceptions and future scalability
-- Further peformance and security management via: requests compression, CORS, XSS protection, rate limiting, data sanitization and validation
-- Server is defined as 'standalone' to easily allow testing and future scalability (i.e. GraphQL). Same goes for some utility libraries
-
-### Estimated Delivery Time
-
-About 1.5 day(s) | 12 working hours (including extra implementations)
-
-## To Be Improved
-
-- More snippets abstraction into common libraries (i.e. utilities/api) - (DRY)
-- Schema 3rd-party typing definitions (i.e. `violations`)
-- Responses transormation interceptor/middleware (getting rid of extra fields for security concerns)
-- Logging (i.e. `EventEmitter`)
-- API documentation (Swagger)
-- API versioning and GraphQL implementation for future scalability
-- API JWT-based authorization
-- Additional (corner-cases) tests
+All product names, logos, and brands (including WCAG, W3C, Axe, Puppeteer, MongoDB, and related technologies) are the property of their respective owners and are used for identification purposes only.
