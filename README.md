@@ -1,119 +1,90 @@
-# Accessibility Scanner
+# WCAG Accessibility Scanner
 
-AccessiWay Coding Challenge
+Automated web accessibility auditing platform built with **React 19**, **TypeScript**, **Node.js**, **Puppeteer**, and **axe-core** in an NPM Workspaces monorepo.
 
-![Accessibility Scanner](./docs/preview.gif "Accessibility Scanner Preview")
+[![Accessibility Scanner CI](https://github.com)](https://github.com)
+[![Accessibility Scanner CD](https://github.com)](https://github.com)
 
-[![Accessibility Scanner CI](https://github.com/lc-2025/accessibility-scanner/actions/workflows/ci.yml/badge.svg)](https://github.com/lc-2025/accessibility-scanner/actions/workflows/ci.yml) [![Accessibility Scanner CD](https://github.com/lc-2025/accessibility-scanner/actions/workflows/cd.yml/badge.svg)](https://github.com/lc-2025/accessibility-scanner/actions/workflows/cd.yml)
+**Live Demo:** [accessibility-scanner.vercel.app](https://vercel.app)
 
-## About
+![Accessibility Scanner Preview](./docs/preview.gif "Accessibility Scanner Preview")
 
-Fullstack Take-Home Challenge – Accessibility Scanner.
+---
 
-All trademarks, logos, images, and references belong to their legitimate owners.
-The author holds no ownership or exclusive rights to use this application, except for demonstration purposes.
+## Overview
 
-### Objective
+**WCAG Accessibility Scanner** enables engineering and product teams to audit single or multiple URLs in batch, inspect live DOM trees in a headless browser against WCAG standards, and export structured compliance reports.
 
-Build a fullstack web application that allows users to:
+### Core Capabilities
 
-- Submit one or more URLs to analyze
-- Launch an automated scan for accessibility issues
-- View the status of the scan
-- Explore the results in a clear and user-friendly interface
+- **Batch URL Auditing & Lifecycle Tracking:** Submit one or more URLs simultaneously and monitor asynchronous scan states (`pending`, `running`, `done`, `error`) persisted in **MongoDB Atlas**.
+- **Headless DOM Inspection:** Uses **Puppeteer Core** and **@axe-core/puppeteer** to evaluate client-rendered pages, grouping violations by severity impact with affected DOM nodes.
+- **Reporting & Localization:** Supports paginated scan history, one-click **CSV report export** (`@json2csv`), and multi-language UI (**EN / IT**) via `i18next`.
+- **Production-Hardened API:** Built with Mongoose schema indexing and transactions, Gzip/Brotli compression, rate limiting, Joi schema validation, Helmet/CORS/NoSQL-injection protection, and HTTPS enforcement.
 
-### Required Technologies
+---
 
-- Node.js + Express
-- Puppeteer
-- Axe-core
-- MongoDB (you can use Atlas or local)
-- TypeScript or modern JavaScript (ES6+)
-- Testing with Jest or similar
+## Architecture & Tech Stack
 
-### Required Features
+The repository is structured as an **NPM Workspaces monorepo** decoupling the client SPA from the containerized auditing engine:
 
-Create a REST API with the following routes:
+```text
+accessibility-scanner/
+├── frontend/          # React 19, TypeScript 5.8, Vite 7, Tailwind CSS v4, TanStack Query v5, Vitest, Cypress
+├── backend/           # Node.js, Express, TypeScript 5.9, Puppeteer Core, axe-core, Mongoose 8, Jest, Docker
+├── docs/              # Documentation assets and preview media
+└── .github/workflows/ # Automated CI (lint, unit/E2E tests, build) & CD (Docker -> GHCR -> Render / Vercel)
+```
 
-- `POST` /scan
-  - Launch one or more scans (pass an array of URLs)
-- `GET` /scan/:id
-  - Retrieve the status and results of a scan
-- `GET` /scan/list
-  - Return the list of all scans performed
-- `PUT` /scan/:id
-  - (Optional) Update a scan
-- `DELETE` /scan/:id
-  - Delete a scan
+### Engineering Trade-offs
 
-### Scan Logic
+- **Headless Browser Context (`puppeteer-core` + `axe-core`) vs. Static HTML Parsing:** Static parsers miss regressions introduced by client-side hydration, computed CSS visibility, or dynamic ARIA attributes. Injecting `axe-core` into a live headless browser session validates actual user-facing DOM states while keeping container images lean via `puppeteer-core`.
+- **Asynchronous Execution & Transactional Persistence:** Headless audits execute asynchronously in the background to prevent HTTP timeouts during multi-URL batch runs, while MongoDB indexes and query transactions ensure data consistency and fast paginated lookups.
+- **Unified Monorepo Governance & CI/CD:** Root workspace scripts (`setup`, `lint`, `test`, `build`) combined with Husky hooks and GitHub Actions enforce automated quality gates before shipping Docker images via **GitHub Container Registry (GHCR)** to **Render** and deploying the frontend to **Vercel**.
 
-- Use **Puppeteer** to open the page
-- Run **axe-core** in the page context to collect accessibility violations
-- Store the results in MongoDB (can be async/background)
+---
 
-Each scan should include:
+## Documentation
 
-- id
-- status (pending, running, done, error)
-- createdAt, updatedAt
-- List of violations
+For workspace-specific environment setup (`.env.dist`), API specifications, Docker commands, and testing workflows, refer to the dedicated guides:
 
-## Submission
+- **[Frontend Documentation](./frontend/README.md)** — React 19 / Vite 7 SPA, TanStack Query caching, i18n, CSV export, Vitest & Cypress E2E.
+- **[Backend Documentation](./backend/README.md)** — Express REST API, Puppeteer/axe-core runner, MongoDB Atlas, Docker & Render deployment.
 
-- Deliver a .zip file containing:
-  - `/backend` and `/frontend` folders
-  - `.git` history if possible
-  - A complete README.md (see below)
-
-- README - Must include:
-  - How to install and run both backend and frontend
-  - How to run the tests
-  - Architecture and technology choices
-  - Time actually spent on the project
-  - What you would have improved with more time
-
-## Time Estimate
-
-- 6–8 hours max for the base version
-  - Partial delivery is acceptable as long as it’s well documented in the README.
+---
 
 ## Getting Started
 
-For any contribution, maintanance and/or trial needs, please refer to these specifications and side-ones:
+Run all workspace commands from the repository root:
 
-- [Frontend](./frontend/README.md)
-- [Backend](./backend/README.md)
-
-## Repository
-
-The project reflects a monolithic setting - monorepo - using _NPM Workspaces_ to organize both frontend than backend sides.
-Workspaces may be globally managed accordingly to the following specifications.
-
-## Setting Up
-
-On terminal, from project root:
-
-- To install dependencies for all the workspaces:
+- **Install dependencies across all workspaces:**
 
 ```bash
 npm run setup
 ```
 
-- To lint the sources for the `Frontend` workspace:
+- **Run linter and formatting checks across all workspaces:**
 
 ```bash
 npm run lint
 ```
 
-- To build the production version of all the workspaces:
+- **Execute CI test suites across all workspaces:**
+
+```bash
+npm run test
+```
+
+- **Build production bundles for all workspaces:**
 
 ```bash
 npm run build
 ```
 
-- To run the tests in `testing` mode (staging or content-integration/delivery environments) on all the workspaces:
+---
 
-```bash
-npm run test
-```
+## Copyright & Disclaimer
+
+**All Rights Reserved (`UNLICENSED`).** The source code in this repository is the original work of the author and is published solely for portfolio demonstration and technical evaluation purposes. No license is granted for commercial use, redistribution, or derivative works.
+
+All third-party trademarks, logos, brand assets, and external website references displayed in the application or preview media belong to their respective owners. The author claims no ownership or affiliation with those entities.
