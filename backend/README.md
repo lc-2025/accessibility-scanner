@@ -2,9 +2,9 @@
 
 RESTful backend service for the **WCAG Accessibility Scanner** platform. Built with Node.js, Express, TypeScript, and Puppeteer + `axe-core`, it executes headless browser accessibility audits on target web pages, validates payloads, persists scan history in MongoDB, and enforces security hardening.
 
-- **Production Deployment:** [https://onrender.com](https://onrender.com) (Docker image published via GitHub Container Registry)
+- **Production Deployment:** [https://accessibility-scanner-backend-lyqi.onrender.com](https://accessibility-scanner-backend-lyqi.onrender.com) (Docker image published via GitHub Container Registry)
 - **Root Documentation:** [`../README.md`](../README.md)
-
+> Please note that the backend services are subject to cold starts. You might experience a little delay on a first run.
 ---
 
 ## Tech Stack
