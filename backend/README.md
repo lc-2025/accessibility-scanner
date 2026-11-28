@@ -46,7 +46,11 @@ backend/
 
 ### Environment Variables
 
-Create a `.env` file inside the `backend/` directory (refer to `.env.example` if present) and configure your runtime variables (such as server port, MongoDB connection URI, allowed CORS origin, and Chromium executable path).
+Create a `.env` file inside the `backend/` directory based on `.env.dist` and configure your runtime variables (server port, MongoDB connection URI, allowed CORS origin, and Chromium executable path):
+
+```bash
+cp .env.dist .env
+```
 
 ### Installation & Development
 
@@ -83,13 +87,20 @@ docker run --env-file ./backend/.env -p 5000:5000 accessibility-scanner-backend
 
 ---
 
-## Testing
+## Testing & Quality
 
-Run the Jest and Supertest suite:
+- **Code Formatting (`Prettier`):**
+  ```bash
+  npm run lint --workspace=backend
+  ```
+- **Unit & API Integration Tests (`Jest` & `Supertest`):**
+  ```bash
+  # Watch mode
+  npm run test --workspace=backend
 
-```bash
-npm test --workspace=backend
-```
+  # CI single-run mode
+  npm run test:ci --workspace=backend
+  ```
 
 ---
 
