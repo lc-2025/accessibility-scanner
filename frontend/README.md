@@ -51,7 +51,11 @@ frontend/
 
 ### Environment Variables
 
-Create a `.env` file inside the `frontend/` directory based on `.env.example` (if present) and configure the backend API base URL (e.g., `VITE_API_URL` or your configured Vite environment prefix).
+Create a `.env` file inside the `frontend/` directory based on `.env.dist` and configure the backend API base URL (e.g., `VITE_API_URL`):
+
+```bash
+cp .env.dist .env
+```
 
 ### Installation & Development
 
@@ -79,15 +83,25 @@ npm run preview --workspace=frontend
 
 ## Testing & Quality
 
+- **Linter & Formatting:**
+  ```bash
+  npm run lint --workspace=frontend
+  ```
 - **Unit & Component Tests (Vitest):**
   ```bash
+  # Watch mode
   npm run test --workspace=frontend
+
+  # CI single-run mode
+  npm run test:ci --workspace=frontend
   ```
 - **End-to-End Tests (Cypress):**
   ```bash
+  # Interactive runner
   npm run cypress:open --workspace=frontend
-  # or headless execution
-  npm run cypress:run --workspace=frontend
+
+  # Headless CLI execution
+  npx --workspace=frontend cypress run
   ```
 
 ---
