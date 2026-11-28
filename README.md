@@ -1,12 +1,12 @@
 # WCAG Accessibility Scanner
 
-Automated web accessibility auditing platform built with **React 19**, **TypeScript**, **Node.js**, **Puppeteer**, and **axe-core** in an NPM Workspaces monorepo.
+Automated web accessibility auditing platform built with **React 19**, **TypeScript**, **Node.js**, **Puppeteer Core**, and **axe-core** in an **NPM Workspaces** monorepo.
 
 [![Accessibility Scanner CI](https://github.com/lc-2025/accessibility-scanner/actions/workflows/ci.yml/badge.svg)](https://github.com/lc-2025/accessibility-scanner/actions/workflows/ci.yml)
 [![Accessibility Scanner CD](https://github.com/lc-2025/accessibility-scanner/actions/workflows/cd.yml/badge.svg)](https://github.com/lc-2025/accessibility-scanner/actions/workflows/cd.yml)
 
-**Live Demo:** [accessibility-scanner-demo.vercel.app](https://accessibility-scanner-demo.vercel.app)
-> Please note that the backend services are subject to cold starts. You might experience a little delay on a first run.
+**Live Demo:** [accessibility-scanner-demo.vercel.app](https://vercel.app)
+> **Note:** Backend services are hosted on Render free-tier containers and may experience cold-start latency on the initial request.
 
 ![Accessibility Scanner Preview](./docs/preview.gif "Accessibility Scanner Preview")
 
@@ -25,9 +25,25 @@ Automated web accessibility auditing platform built with **React 19**, **TypeScr
 
 ---
 
-## Architecture & Tech Stack
+## System Architecture
 
-The repository is structured as an **NPM Workspaces monorepo** decoupling the client SPA from the containerized auditing engine:
+The repository is structured as an **NPM Workspaces** monorepo decoupling the client SPA from the containerized auditing engine:
+
+```mermaid
+flowchart LR
+    subgraph Monorepo ["NPM Workspaces Monorepo"]
+        FE["frontend/\nReact 19 · Vite 7 · TS\nTanStack Query v5 · Tailwind v4"]
+        BE["backend/\nNode.js · Express · TS\nPuppeteer Core · axe-core"]
+    end
+
+    FE <-- "REST API (Polling & CSV)" --> BE
+    BE <-- "Transactions & Indexes" --> DB[("MongoDB Atlas")]
+    BE -- "Headless DOM Audit" --> Target["Target Web Pages"]
+    FE -- "CI/CD" --> Vercel["Vercel Edge Network"]
+    BE -- "Docker Image (GHCR)" --> Render["Render Cloud"]
+```
+
+### Repository Layout
 
 ```text
 accessibility-scanner/
@@ -45,7 +61,7 @@ accessibility-scanner/
 
 ---
 
-## Documentation
+## Workspace Documentation
 
 For workspace-specific environment setup (`.env.dist`), API specifications, Docker commands, and testing workflows, refer to the dedicated guides:
 
@@ -54,38 +70,24 @@ For workspace-specific environment setup (`.env.dist`), API specifications, Dock
 
 ---
 
-## Getting Started
+## Local Development & Scripts
 
-Run all workspace commands from the repository root:
+All root scripts orchestrate workspace tasks via NPM Workspaces:
 
-- **Install dependencies across all workspaces:**
-
-```bash
-npm run setup
-```
-
-- **Run linter and formatting checks across all workspaces:**
-
-```bash
-npm run lint
-```
-
-- **Execute CI test suites across all workspaces:**
-
-```bash
-npm run test
-```
-
-- **Build production bundles for all workspaces:**
-
-```bash
-npm run build
-```
+| Command | Scope | Description |
+| :--- | :--- | :--- |
+| `npm run setup` | All Workspaces | Installs dependencies across root, `frontend`, and `backend`. |
+| `npm run setup:ci` | All Workspaces | Deterministic clean install for CI environments (`npm ci`). |
+| `npm run lint` | All Workspaces | Runs ESLint, Stylelint, and Prettier validation across all workspaces (`--ws`). |
+| `npm run test` | All Workspaces | Executes CI unit and integration test suites across all workspaces (`--ws`). |
+| `npm run build` | All Workspaces | Compiles production bundles for both `frontend` and `backend` (`--ws`). |
 
 ---
 
 ## Copyright & Disclaimer
 
 **All Rights Reserved (`UNLICENSED`).** The source code in this repository is the original work of the author and is published solely for portfolio demonstration and technical evaluation purposes. No license is granted for commercial use, redistribution, or derivative works.
+
+All third-party trademarks, logos, brand assets, and external website references displayed in the application or preview media belong to their respective owners. The author claims no ownership or affiliation with those entities.
 
 All third-party trademarks, logos, brand assets, and external website references displayed in the application or preview media belong to their respective owners. The author claims no ownership or affiliation with those entities.
